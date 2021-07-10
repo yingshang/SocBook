@@ -44,7 +44,7 @@ wazuh管理端收到该日志并进入处理之后，变成了一条ID号533告�
 
 ![](.gitbook/assets/image%20%28156%29.png)
 
-通过告警日志有规则ID号，去找到对应的识别规则。
+通过告警日志有规则ID号，去找到对应的识别规则。关于规则内容在规则那一章节说明，先不细说。
 
 ```text
 [root@wazuh-manager rules]# cat /var/ossec/ruleset/rules/0015-ossec_rules.xml | grep -A 7 533 
@@ -56,6 +56,16 @@ wazuh管理端收到该日志并进入处理之后，变成了一条ID号533告�
     <group>pci_dss_10.2.7,pci_dss_10.6.1,gpg13_10.1,gdpr_IV_35.7.d,hipaa_164.312.b,nist_800_53_AU.14,nist_800_53_AU.6,tsc_CC6.8,tsc_CC7.2,tsc_CC7.3,</group>
   </rule>
 ```
+
+使用这个功能的话，有两种使用方式，一种是直接修改代理端配置文件，新增命令监控内容，不过这种我是不推荐这种，改起来很复杂；另一种就是通过管理端下发配置文件，这种需要**代理端开启远程命令内容收集权限**。
+
+```text
+[root@wazuh-centos-agent ~]# echo "logcollector.remote_commands=1" >> /var/ossec/etc/local_internal_options.conf 
+```
+
+
+
+
 
 
 
