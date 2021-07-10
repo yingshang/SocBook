@@ -40,5 +40,22 @@ udp 127.0.0.1:323 0.0.0.0:* 726/chronyd
 udp6 ::1:323 :::* 726/chronyd
 ```
 
+wazuh管理端收到该日志并进入处理之后，变成了一条ID号533告警日志
+
+![](.gitbook/assets/image%20%28156%29.png)
+
+通过告警日志有规则ID号，去找到对应的识别规则。
+
+```text
+[root@wazuh-manager rules]# cat /var/ossec/ruleset/rules/0015-ossec_rules.xml | grep -A 7 533 
+  <rule id="533" level="7">
+    <if_sid>530</if_sid>
+    <match>ossec: output: 'netstat listening ports</match>
+    <check_diff />
+    <description>Listened ports status (netstat) changed (new port opened or closed).</description>
+    <group>pci_dss_10.2.7,pci_dss_10.6.1,gpg13_10.1,gdpr_IV_35.7.d,hipaa_164.312.b,nist_800_53_AU.14,nist_800_53_AU.6,tsc_CC6.8,tsc_CC7.2,tsc_CC7.3,</group>
+  </rule>
+```
+
 
 
