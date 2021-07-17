@@ -89,7 +89,7 @@ wazuh管理端收到该日志并进入处理之后，变成了一条ID号533告�
 
 等一分钟时间，就可以看到`/var/ossec/logs/archives/archives.log`文件已经收到日志。
 
-![](.gitbook/assets/image%20%28157%29.png)
+![](.gitbook/assets/image%20%28158%29.png)
 
 现在看到是原始日志，后面在规则自定义章节进行对日志的处理。
 
