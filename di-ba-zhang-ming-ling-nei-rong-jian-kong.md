@@ -65,6 +65,32 @@ wazuh管理端收到该日志并进入处理之后，变成了一条ID号533告�
 [root@wazuh-centos-agent ~]# echo "logcollector.remote_commands=1" >> /var/ossec/etc/local_internal_options.conf 
 ```
 
+设置共享配置文件
+
+```text
+[root@wazuh-manager opt]# cat /var/ossec/etc/shared/default/agent.conf 
+<agent_config>
+  <localfile>
+    <log_format>full_command</log_format>
+    <command>ps aux</command>
+    <frequency>60</frequency>
+  </localfile>
+</agent_config>
+```
+
+我们先不对`ps aux`内容做规则和告警处理，单纯查看代理端是否执行这个命令，并且是否将日志发送到管理端。
+
+开启记录全部日志，并且重启管理端服务。
+
+```text
+<logall>yes</logall>
+<logall_json>yes</logall_json>
+```
+
+等一分钟时间，就可以看到`/var/ossec/logs/archives/archives.log`文件已经收到日志。
+
+![](.gitbook/assets/image%20%28157%29.png)
+
 
 
 
