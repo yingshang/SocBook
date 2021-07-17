@@ -63,6 +63,7 @@
 * [第八章  命令内容监控](di-ba-zhang-ming-ling-nei-rong-jian-kong.md)
 * [第九章 主机安全漏洞检测](di-jiu-zhang-an-quan-lou-dong-jian-kong-he-jian-ce/README.md)
   * [9.1 配置漏洞扫描](di-jiu-zhang-an-quan-lou-dong-jian-kong-he-jian-ce/9.1-pei-zhi-lou-dong-sao-miao.md)
+* [第十章  主动防御](di-shi-zhang-zhu-dong-fang-yu.md)
 * [第N章 SIEM虚拟机](dinzhang-siem-xu-ni-ji/README.md)
   * [siemonster](dinzhang-siem-xu-ni-ji/siemonster.md)
   * [wazuh](dinzhang-siem-xu-ni-ji/wazuh.md)
