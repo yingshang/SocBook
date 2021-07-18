@@ -6,23 +6,19 @@
 
 要触发主动防御，主要有两个流程：
 
-1. 使用下发配置文件给代理端，开启主动防御模式。
+1. 修改管理端配置文件，开启主动防御模式。
 2. 使用拦截脚本，定义拦截方式和拦截频率次数。
 
-### 下发配置文件
-
-修改共享配置文件。
+### 修改管理端配置文件
 
 ```text
-[root@wazuh-manager opt]# cat /var/ossec/etc/shared/default/agent.conf 
-<agent_config>
+[root@wazuh-manager opt]# cat  /var/ossec/etc/ossec.conf | grep -A 6 "<active"
   <active-response>
     <command>host-deny</command>
     <location>local</location>
     <rules_id>5716</rules_id>
     <timeout>600</timeout>
   </active-response>
-</agent_config>
 ```
 
 说明一下主动防御这些标签作用。
