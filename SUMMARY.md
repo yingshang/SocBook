@@ -49,33 +49,37 @@
   * [wazuh鉴权机制](wazuh/di-san-zhang-ri-zhi-shou-ji-an-zhuang-pei-zhi/3.6-wazuh-jian-quan-ji-zhi/README.md)
     * [管理端与代理端通信](wazuh/di-san-zhang-ri-zhi-shou-ji-an-zhuang-pei-zhi/3.6-wazuh-jian-quan-ji-zhi/3.6.1-guan-li-duan-yu-dai-li-duan-tong-xin.md)
     * [wazuhAPI认证](wazuh/di-san-zhang-ri-zhi-shou-ji-an-zhuang-pei-zhi/3.6-wazuh-jian-quan-ji-zhi/3.6.2-wazuhapi-ren-zheng.md)
+* [wazuh共享和集群](wazuh/di-si-zhang-wazuh-tong-bu-he-ji-qun/README.md)
+  * [wazuh共享](wazuh/di-si-zhang-wazuh-tong-bu-he-ji-qun/4.1-wazuh-tong-bu.md)
+  * [wazuh集群](wazuh/di-si-zhang-wazuh-tong-bu-he-ji-qun/4.2-wazuh-ji-qun.md)
+* [文件完整性监控](wazuh/di-wu-zhang-wen-jian-wan-zheng-xing-jian-kong/README.md)
+  * [功能描述](wazuh/di-wu-zhang-wen-jian-wan-zheng-xing-jian-kong/5.1-gong-neng-miao-shu.md)
+  * [实战操作](wazuh/di-wu-zhang-wen-jian-wan-zheng-xing-jian-kong/5.2-shi-zhan-yan-lian.md)
+* [异常和恶意软件检测](wazuh/di-liu-zhang-yi-chang-heeyi-ruan-jian-jian-ce/README.md)
+  * [本地特征检测](wazuh/di-liu-zhang-yi-chang-heeyi-ruan-jian-jian-ce/6.1-ben-di-gui-ze-jian-ce.md)
+  * [VirusTotal检测](wazuh/di-liu-zhang-yi-chang-heeyi-ruan-jian-jian-ce/6.2-virustotal-jian-ce.md)
+  * [clamav检测](wazuh/di-liu-zhang-yi-chang-heeyi-ruan-jian-jian-ce/6.3-clamav-jian-ce.md)
+* [安全基线检测](wazuh/di-qi-zhang-an-quan-ji-xian-jian-ce/README.md)
+  * [SCA](wazuh/di-qi-zhang-an-quan-ji-xian-jian-ce/7.1-sca.md)
+  * [openscap](wazuh/di-qi-zhang-an-quan-ji-xian-jian-ce/untitled.md)
+* [命令内容监控](wazuh/di-ba-zhang-ming-ling-nei-rong-jian-kong.md)
+* [主机安全漏洞检测](wazuh/di-jiu-zhang-an-quan-lou-dong-jian-kong-he-jian-ce.md)
+* [主动防御](wazuh/di-shi-zhang-zhu-dong-fang-yu.md)
+* [自定义规则](wazuh/di-shi-er-zhang-zi-ding-yi-gui-ze.md)
 
----
+## NIDS
 
-* [第四章 wazuh共享和集群](di-si-zhang-wazuh-tong-bu-he-ji-qun/README.md)
-  * [4.1 wazuh共享](di-si-zhang-wazuh-tong-bu-he-ji-qun/4.1-wazuh-tong-bu.md)
-  * [4.2 wazuh集群](di-si-zhang-wazuh-tong-bu-he-ji-qun/4.2-wazuh-ji-qun.md)
-* [第五章 文件完整性监控](di-wu-zhang-wen-jian-wan-zheng-xing-jian-kong/README.md)
-  * [5.1 功能描述](di-wu-zhang-wen-jian-wan-zheng-xing-jian-kong/5.1-gong-neng-miao-shu.md)
-  * [5.2 实战操作](di-wu-zhang-wen-jian-wan-zheng-xing-jian-kong/5.2-shi-zhan-yan-lian.md)
-* [第六章 异常和恶意软件检测](di-liu-zhang-yi-chang-heeyi-ruan-jian-jian-ce/README.md)
-  * [6.1 本地规则检测](di-liu-zhang-yi-chang-heeyi-ruan-jian-jian-ce/6.1-ben-di-gui-ze-jian-ce.md)
-  * [6.2 VirusTotal检测](di-liu-zhang-yi-chang-heeyi-ruan-jian-jian-ce/6.2-virustotal-jian-ce.md)
-  * [6.3 clamav检测](di-liu-zhang-yi-chang-heeyi-ruan-jian-jian-ce/6.3-clamav-jian-ce.md)
-* [第七章 安全基线检测](di-qi-zhang-an-quan-ji-xian-jian-ce/README.md)
-  * [7.1 SCA](di-qi-zhang-an-quan-ji-xian-jian-ce/7.1-sca.md)
-  * [7.2 openscap](di-qi-zhang-an-quan-ji-xian-jian-ce/untitled.md)
-* [第八章  命令内容监控](di-ba-zhang-ming-ling-nei-rong-jian-kong.md)
-* [第九章 主机安全漏洞检测](di-jiu-zhang-an-quan-lou-dong-jian-kong-he-jian-ce/README.md)
-  * [9.1 配置漏洞扫描](di-jiu-zhang-an-quan-lou-dong-jian-kong-he-jian-ce/9.1-pei-zhi-lou-dong-sao-miao.md)
-* [第十章  主动防御](di-shi-zhang-zhu-dong-fang-yu.md)
-* [第十二章 自定义规则](di-shi-er-zhang-zi-ding-yi-gui-ze.md)
+* [Untitled](nids/untitled.md)
 
 ## 安全审计
 
 * [audit](an-quan-shen-ji/audit.md)
 * [sysmon](an-quan-shen-ji/sysmon.md)
 * [osquery](an-quan-shen-ji/osquery.md)
+
+## 图形可视化
+
+* [Untitled](tu-xing-ke-shi-hua/untitled.md)
 
 ## 虚拟机
 

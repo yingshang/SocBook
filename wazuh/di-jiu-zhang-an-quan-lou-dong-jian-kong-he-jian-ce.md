@@ -1,0 +1,297 @@
+# 主机安全漏洞检测
+
+为了能够进行主机安全漏洞检测，代理端需收集本地所有的软件版本信息，将这些信息发送到管理端后对安全漏洞数据库进行匹配关联，一旦匹配成功就会生成关于该软件的安全漏洞信息告警。其中这个安全漏洞数据库会自动创建，从以下漏洞信息网站来源获取：
+
+* [https://canonical.com](https://canonical.com/)：Ubuntu系统CVE漏洞信息。
+* [https://www.redhat.com](https://www.redhat.com/)：红帽和centos的CVE漏洞信息。
+* [https://www.debian.org](https://www.debian.org/)：debian系统CVE漏洞信息。
+* [https://nvd.nist.gov/](https://nvd.nist.gov/)：美国国家收集CVE漏洞信息。
+* [https://feed.wazuh.com/](https://feed.wazuh.com/)：wazuh官方收集CVE和Windows的漏洞信息。
+
+管理端会自动更新安全漏洞数据库，以此来响应最新的安全漏洞告警和补丁更新。
+
+使用配置文件共享，下发开启软件服务信息收集功能。配置完成之后，重启管理端服务。
+
+```text
+[root@wazuh-manager opt]# cat /var/ossec/etc/shared/default/agent.conf 
+<agent_config>
+  <wodle name="syscollector">
+    <disabled>no</disabled>
+    <interval>30s</interval>
+    <os>yes</os>
+    <packages>yes</packages>
+  </wodle>
+</agent_config>
+```
+
+如果要扫描Windows代理端的话，需要额外添加`hotfixes`参数。
+
+```text
+  <hotfixes>yes</hotfixes>
+```
+
+修改管理端配置文件，开启漏洞扫描功能和各操作系统的扫描。为了说明，我设置了扫描时间为1分钟，更新漏洞数据信息为1分钟。修改完成之后，重新管理端服务。
+
+```text
+  <vulnerability-detector>
+    <enabled>yes</enabled>
+    <interval>1m</interval>
+    <ignore_time>6h</ignore_time>
+    <run_on_start>yes</run_on_start>
+
+    <!-- Ubuntu OS vulnerabilities -->
+    <provider name="canonical">
+      <enabled>yes</enabled>
+      <os>trusty</os>
+      <os>xenial</os>
+      <os>bionic</os>
+      <os>focal</os>
+      <update_interval>1m</update_interval>
+    </provider>
+
+    <!-- Debian OS vulnerabilities -->
+    <provider name="debian">
+      <enabled>yes</enabled>
+      <os>stretch</os>
+      <os>buster</os>
+      <update_interval>1m</update_interval>
+    </provider>
+
+    <!-- RedHat OS vulnerabilities -->
+    <provider name="redhat">
+      <enabled>yes</enabled>
+      <os>5</os>
+      <os>6</os>
+      <os>7</os>
+      <os>8</os>
+      <update_interval>1m</update_interval>
+    </provider>
+
+    <!-- Windows OS vulnerabilities -->
+    <provider name="msu">
+      <enabled>yes</enabled>
+      <update_interval>1m</update_interval>
+    </provider>
+
+    <!-- Aggregate vulnerabilities -->
+    <provider name="nvd">
+      <enabled>yes</enabled>
+      <update_from_year>2010</update_from_year>
+      <update_interval>1m</update_interval>
+    </provider>
+
+  </vulnerability-detector>
+```
+
+但是查看日志会发现一件事情，就是服务器拖取不到漏洞信息，因为这些信息都是外网IP，延迟比较大。
+
+```text
+[root@wazuh-manager ossec]# tail -f /var/ossec/logs/ossec.log 
+2021/07/17 00:47:00 wazuh-modulesd:vulnerability-detector: INFO: (5430): The update of the 'Ubuntu Focal' feed finished successfully.
+2021/07/17 00:47:00 wazuh-modulesd:vulnerability-detector: INFO: (5400): Starting 'Debian Stretch' database update.
+2021/07/17 00:47:58 wazuh-modulesd:vulnerability-detector: INFO: (5430): The update of the 'Debian Stretch' feed finished successfully.
+2021/07/17 00:47:58 wazuh-modulesd:vulnerability-detector: INFO: (5400): Starting 'Debian Buster' database update.
+2021/07/17 00:48:29 wazuh-modulesd:vulnerability-detector: INFO: (5430): The update of the 'Debian Buster' feed finished successfully.
+2021/07/17 00:48:29 wazuh-modulesd:vulnerability-detector: INFO: (5400): Starting 'Red Hat Enterprise Linux 5' database update.
+2021/07/17 00:49:13 wazuh-modulesd:vulnerability-detector: WARNING: (5500): The 'Red Hat Enterprise Linux 5' database could not be fetched.
+2021/07/17 00:49:13 wazuh-modulesd:vulnerability-detector: INFO: (5400): Starting 'Red Hat Enterprise Linux 6' database update.
+2021/07/17 00:49:57 wazuh-modulesd:vulnerability-detector: WARNING: (5500): The 'Red Hat Enterprise Linux 6' database could not be fetched.
+2021/07/17 00:49:57 wazuh-modulesd:vulnerability-detector: INFO: (5400): Starting 'Red Hat Enterprise Linux 7' database update.
+2021/07/17 00:50:42 wazuh-modulesd:vulnerability-detector: WARNING: (5500): The 'Red Hat Enterprise Linux 7' database could not be fetched.
+2021/07/17 00:50:42 wazuh-modulesd:vulnerability-detector: INFO: (5400): Starting 'Red Hat Enterprise Linux 8' database update.
+2021/07/17 00:51:26 wazuh-modulesd:vulnerability-detector: WARNING: (5500): The 'Red Hat Enterprise Linux 8' database could not be fetched.
+```
+
+为了解决这个问题，我们可以使用离线版漏洞信息数据库，只需做个定时计划下载就可以。
+
+创建一个存放漏洞信息数据库目录。
+
+```text
+mkdir /opt/vul
+```
+
+使用python脚本进行下载。
+
+```text
+import requests
+import os
+
+def ubuntu_download():
+    urls = [
+        "https://people.canonical.com/~ubuntu-security/oval/com.ubuntu.focal.cve.oval.xml.bz2",
+        "https://people.canonical.com/~ubuntu-security/oval/com.ubuntu.bionic.cve.oval.xml.bz2",
+        "https://people.canonical.com/~ubuntu-security/oval/com.ubuntu.xenial.cve.oval.xml.bz2",
+        "https://people.canonical.com/~ubuntu-security/oval/com.ubuntu.trusty.cve.oval.xml.bz2"
+    ]
+
+    for url in urls:
+        r = requests.get(url=url)
+        pathname = os.path.join("/opt/vul",url.split("/")[-1])
+        with open(pathname,"wb") as f:
+            f.write(r.content)
+            f.close()
+
+
+def debian_download():
+    urls = [
+        "https://www.debian.org/security/oval/oval-definitions-buster.xml",
+        "https://www.debian.org/security/oval/oval-definitions-stretch.xml",
+    ]
+
+    for url in urls:
+        r = requests.get(url=url)
+        pathname = os.path.join("/opt/vul",url.split("/")[-1])
+        with open(pathname,"wb") as f:
+            f.write(r.content)
+            f.close()
+def redhat_download():
+    urls = [
+        "https://www.redhat.com/security/data/oval/com.redhat.rhsa-RHEL5.xml.bz2",
+        "https://www.redhat.com/security/data/oval/v2/RHEL6/rhel-6-including-unpatched.oval.xml.bz2",
+        "https://www.redhat.com/security/data/oval/v2/RHEL7/rhel-7-including-unpatched.oval.xml.bz2",
+        "https://www.redhat.com/security/data/oval/v2/RHEL8/rhel-8-including-unpatched.oval.xml.bz2",
+    ]
+
+    for url in urls:
+        r = requests.get(url=url)
+        pathname = os.path.join("/opt/vul",url.split("/")[-1])
+        with open(pathname,"wb") as f:
+            f.write(r.content)
+            f.close()
+
+def windows_download():
+    urls = [
+        "https://feed.wazuh.com/vulnerability-detector/windows/msu-updates.json.gz",
+    ]
+
+    for url in urls:
+        r = requests.get(url=url)
+        pathname = os.path.join("/opt/vul",url.split("/")[-1])
+        with open(pathname,"wb") as f:
+            f.write(r.content)
+            f.close()
+
+def nvd_download():
+
+    for i  in range(2002,2022):
+        url = "https://nvd.nist.gov/feeds/json/cve/1.1/nvdcve-1.1-{}.json.gz".format(i)
+        r = requests.get(url=url)
+        pathname = os.path.join("/opt/vul",url.split("/")[-1])
+        with open(pathname,"wb") as f:
+            f.write(r.content)
+            f.close()
+
+if __name__ == '__main__':
+    ubuntu_download()
+    debian_download()
+    redhat_download()
+    windows_download()
+    nvd_download()
+```
+
+安全漏洞信息数据库如下：
+
+```text
+[root@wazuh-manager opt]# tree /opt/vul
+/opt/vul
+├── com.redhat.rhsa-RHEL5.xml.bz2
+├── com.ubuntu.bionic.cve.oval.xml.bz2
+├── com.ubuntu.focal.cve.oval.xml.bz2
+├── com.ubuntu.trusty.cve.oval.xml.bz2
+├── com.ubuntu.xenial.cve.oval.xml.bz2
+├── msu-updates.json.gz
+├── nvdcve-1.1-2002.json.gz
+├── nvdcve-1.1-2003.json.gz
+├── nvdcve-1.1-2004.json.gz
+├── nvdcve-1.1-2005.json.gz
+├── nvdcve-1.1-2006.json.gz
+├── nvdcve-1.1-2007.json.gz
+├── nvdcve-1.1-2008.json.gz
+├── nvdcve-1.1-2009.json.gz
+├── nvdcve-1.1-2010.json.gz
+├── nvdcve-1.1-2011.json.gz
+├── nvdcve-1.1-2012.json.gz
+├── nvdcve-1.1-2013.json.gz
+├── nvdcve-1.1-2014.json.gz
+├── nvdcve-1.1-2015.json.gz
+├── nvdcve-1.1-2016.json.gz
+├── nvdcve-1.1-2017.json.gz
+├── nvdcve-1.1-2018.json.gz
+├── nvdcve-1.1-2019.json.gz
+├── nvdcve-1.1-2020.json.gz
+├── nvdcve-1.1-2021.json.gz
+├── oval-definitions-buster.xml
+├── oval-definitions-stretch.xml
+├── rhel-6-including-unpatched.oval.xml.bz2
+├── rhel-7-including-unpatched.oval.xml.bz2
+└── rhel-8-including-unpatched.oval.xml.bz2
+
+0 directories, 31 files
+
+```
+
+重新更改配置文件内容，使用本地安全漏洞信息数据库。
+
+```text
+<vulnerability-detector>
+    <enabled>yes</enabled>
+    <interval>1m</interval>
+    <ignore_time>6h</ignore_time>
+    <run_on_start>yes</run_on_start>
+
+    <!-- Ubuntu OS vulnerabilities -->
+    <provider name="canonical">
+      <enabled>yes</enabled>
+      <os path="/opt/vul/com.ubuntu.focal.cve.oval.xml.bz2">focal</os>
+      <os path="/opt/vul/com.ubuntu.bionic.cve.oval.xml.bz2">bionic</os>
+      <os path="/opt/vul/com.ubuntu.xenial.cve.oval.xml.bz2">xenial</os>
+      <os path="/opt/vul/com.ubuntu.trusty.cve.oval.xml.bz2">trusty</os>
+      <update_interval>1h</update_interval>
+    </provider>
+
+    <!-- Debian OS vulnerabilities -->
+    <provider name="debian">
+      <enabled>yes</enabled>
+      <os path="/opt/vul/oval-definitions-buster.xml">buster</os>
+      <os path="/opt/vul/oval-definitions-stretch.xml">stretch</os>
+      <update_interval>1h</update_interval>
+    </provider>
+
+    <!-- RedHat OS vulnerabilities -->
+    <provider name="redhat">
+      <enabled>yes</enabled>
+      <os path="/opt/vul/com.redhat.rhsa-RHEL5.xml.bz2">5</os>
+      <os path="/opt/vul/rhel-6-including-unpatched.oval.xml.bz2">6</os>
+      <os path="/opt/vul/rhel-7-including-unpatched.oval.xml.bz2">7</os>
+      <os path="/opt/vul/rhel-8-including-unpatched.oval.xml.bz2">8</os>
+
+      <path>/opt/vul/rh-feed/redhat-feed.*json$</path>
+
+      <update_interval>1h</update_interval>
+    </provider>
+
+    <!-- Windows OS vulnerabilities -->
+    <provider name="msu">
+      <enabled>yes</enabled>
+      <url>/opt/vul/msu-updates.json.gz</url>
+      <update_interval>1h</update_interval>
+    </provider>
+
+    <provider name="nvd">
+      <enabled>yes</enabled>
+      <path>/opt/vul/nvd-feed.*json$</path>
+      <update_interval>1h</update_interval>
+   </provider>
+
+
+  </vulnerability-detector>
+```
+
+一段时间之后，收到了安全漏洞告警的日志。
+
+![](../.gitbook/assets/image%20%28157%29.png)
+
+
+
+
+
