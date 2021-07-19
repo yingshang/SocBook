@@ -286,10 +286,12 @@ ALL:192.168.1.130
 Mon Jul 19 10:34:25 EDT 2021 /var/ossec/active-response/bin/host-deny.sh add - 192.168.1.130 1626705265.17483312 5716
 ```
 
-等待600秒之后，再次查看主动防御日志。
+等待600秒之后，再次查看主动防御日志，就会看到来源IP地址会自动解禁。
 
 ```text
-
+[root@wazuh-centos-agent ~]# cat /var/ossec/logs/active-responses.log 
+Mon Jul 19 10:34:25 EDT 2021 /var/ossec/active-response/bin/host-deny.sh add - 192.168.1.130 1626705265.17483312 5716
+Mon Jul 19 10:44:32 EDT 2021 /var/ossec/active-response/bin/host-deny.sh delete - 192.168.1.130 1626705265.17483312 5716
 ```
 
 查看管理端代理日志，找到关于5716的告警，显示的是ssh验证失败。
