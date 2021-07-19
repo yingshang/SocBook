@@ -9,26 +9,6 @@
 
 ## 管理端配置文件
 
-这里配置文件例子就是使用了`host-deny.sh`拦截脚本，在`command`标签定义`host-deny`，提取来源IP地址，并且设置可以自动解锁封禁（`timeout_allowed`）。
-
-```text
-[root@wazuh-manager opt]# cat  /var/ossec/etc/ossec.conf
-
-  <command>
-    <name>host-deny</name>
-    <executable>host-deny.sh</executable>
-    <expect>srcip</expect>
-    <timeout_allowed>yes</timeout_allowed>
-  </command>
-
-  <active-response>
-    <command>host-deny</command>
-    <location>local</location>
-    <rules_id>5716</rules_id>
-    <timeout>600</timeout>
-  </active-response>
-```
-
 说明一下主动防御这些标签作用。
 
 <table>
@@ -255,11 +235,68 @@ exit 1;
 
 ```
 
+这里配置文件例子就是使用了`host-deny.sh`拦截脚本，在`command`标签定义`host-deny`，提取来源IP地址，并且设置可以自动解锁封禁（`timeout_allowed`）。当触发规则为`5716`的时候，就会使用`host-deny`，并且封禁范围是当前代理端，封禁时间为600秒。
 
+```text
+[root@wazuh-manager opt]# cat  /var/ossec/etc/ossec.conf
 
+  <command>
+    <name>host-deny</name>
+    <executable>host-deny.sh</executable>
+    <expect>srcip</expect>
+    <timeout_allowed>yes</timeout_allowed>
+  </command>
 
+  <active-response>
+    <command>host-deny</command>
+    <location>local</location>
+    <rules_id>5716</rules_id>
+    <timeout>600</timeout>
+  </active-response>
+```
 
+使用kali ssh到centos代理端，第一次连接输入错误的密码，第二次重连就会发现被代理端重置连接。
 
+![](.gitbook/assets/image%20%28159%29.png)
+
+查看`/etc/hosts.deny`文件，就会发现攻击IP被添加上去。
+
+```text
+[root@wazuh-centos-agent ~]# cat /etc/hosts.deny 
+#
+# hosts.deny	This file contains access rules which are used to
+#		deny connections to network services that either use
+#		the tcp_wrappers library or that have been
+#		started through a tcp_wrappers-enabled xinetd.
+#
+#		The rules in this file can also be set up in
+#		/etc/hosts.allow with a 'deny' option instead.
+#
+#		See 'man 5 hosts_options' and 'man 5 hosts_access'
+#		for information on rule syntax.
+#		See 'man tcpd' for information on tcp_wrappers
+#
+ALL:192.168.1.130
+```
+
+查看主动防御的日志，就会发现攻击IP（192.168.1.130），攻击时间（1626705265.17483312），触发拦截规则（5716）。
+
+```text
+[root@wazuh-centos-agent ~]# cat /var/ossec/logs/active-responses.log 
+Mon Jul 19 10:34:25 EDT 2021 /var/ossec/active-response/bin/host-deny.sh add - 192.168.1.130 1626705265.17483312 5716
+```
+
+等待600秒之后，再次查看主动防御日志。
+
+```text
+
+```
+
+查看管理端代理日志，找到关于5716的告警，显示的是ssh验证失败。
+
+![](.gitbook/assets/image%20%28160%29.png)
+
+细心的朋友可能发现了，上面这么严格规则（输入错误一次就封禁），在生产环境的时候，访问SSH输入错误的密码是常见的行为，要是应用了这种规则，怕是要直接炸了，所以需要**引入允许错误次数机制**。
 
 
 
