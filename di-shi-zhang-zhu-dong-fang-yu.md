@@ -9,8 +9,18 @@
 
 ## 管理端配置文件
 
+这里配置文件例子就是使用了`host-deny.sh`拦截脚本，在`command`标签定义`host-deny`，提取来源IP地址，并且设置可以自动解锁封禁（`timeout_allowed`）。
+
 ```text
-[root@wazuh-manager opt]# cat  /var/ossec/etc/ossec.conf | grep -A 6 "<active"
+[root@wazuh-manager opt]# cat  /var/ossec/etc/ossec.conf
+
+  <command>
+    <name>host-deny</name>
+    <executable>host-deny.sh</executable>
+    <expect>srcip</expect>
+    <timeout_allowed>yes</timeout_allowed>
+  </command>
+
   <active-response>
     <command>host-deny</command>
     <location>local</location>
@@ -90,7 +100,7 @@ total 88
 -rwxr-x---. 1 root ossec  1220 Apr 22 09:39 route-null.sh
 ```
 
-这里配置文件例子就是使用了`host-deny.sh`拦截脚本，查看`host-deny.sh`拦截脚本。这个脚本主要将来源IP地址加入到`/etc/hosts.deny`文件里面，Linux系统就会禁止来源IP地址访问。
+`host-deny.sh`脚本主要将来源IP地址加入到`/etc/hosts.deny`文件里面，Linux系统就会禁止来源IP地址访问。
 
 ```text
 [root@wazuh-manager opt]# cat /var/ossec/active-response/bin/host-deny.sh 
