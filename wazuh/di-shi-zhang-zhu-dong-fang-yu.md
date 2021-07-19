@@ -298,7 +298,21 @@ Mon Jul 19 10:44:32 EDT 2021 /var/ossec/active-response/bin/host-deny.sh delete 
 
 ![](../.gitbook/assets/image%20%28160%29.png)
 
-细心的朋友可能发现了，上面这么严格规则（输入错误一次就封禁），在生产环境的时候，访问SSH输入错误的密码是常见的行为，要是应用了这种规则，怕是要直接炸了，所以需要**引入允许错误次数机制**。
+细心的朋友可能发现了，上面这么严格规则（输入错误一次就封禁），在生产环境的时候，访问SSH输入错误的密码是常见的行为，要是应用了这种规则，怕是要直接炸了，所以需要**引入允许错误次数机制**。但是查看`active-response`标签是没有错误次数限制的，这时候，我们需要查看5716告警规则写了什么。
+
+查看 `/var/ossec/ruleset/rules/0095-sshd_rules.xml`规则文件。
+
+```text
+  <rule id="5716" level="5">
+    <if_sid>5700</if_sid>
+    <match>^Failed|^error: PAM: Authentication</match>
+    <description>sshd: authentication failed.</description>
+    <mitre>
+      <id>T1110</id>
+    </mitre>
+    <group>authentication_failed,pci_dss_10.2.4,pci_dss_10.2.5,gpg13_7.1,gdpr_IV_35.7.d,gdpr_IV_32.2,hipaa_164.312.b,nist_800_53_AU.14,nist_800_53_AC.7,tsc_CC6.1,tsc_CC6.8,tsc_CC7.2,tsc_CC7.3,</group>
+  </rule>
+```
 
 
 
