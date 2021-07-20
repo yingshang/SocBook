@@ -14,7 +14,7 @@ GitHub地址：[https://github.com/yingshang/siemBook](https://github.com/yingsh
 
 **该书适合人群：一个人安全部、乙方转甲方安全人员、安全运维人员。**
 
-**初定该书有以下章节内容，总页数500-600。你的star是我更新书籍的动力，star越多更新越快**
+**初定该书总页数500-600。你的star是我更新书籍的动力，star越多更新越快**
 
 
 
