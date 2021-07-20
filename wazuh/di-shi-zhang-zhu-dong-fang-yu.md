@@ -355,15 +355,33 @@ Mon Jul 19 10:44:32 EDT 2021 /var/ossec/active-response/bin/host-deny.sh delete 
 
 在告警日志可以看到相关信息，其中特别注意就是`firedtimes`参数，这个参数就是触发的次数，也就是超过5716规则定义8次才触发这条规则。
 
-![](../.gitbook/assets/image%20%28163%29.png)
+![](../.gitbook/assets/image%20%28165%29.png)
 
 但是这里面就有一个非常奇怪的问题，第一次SSH攻击如果没有中止，就会一直发送，看到下面5716的`firedtimes`参数的值已经到达80次，只有等我停止SSH攻击的时候，就会生成5720规则，这样就会导致攻击识别判断逻辑有问题。
 
 ![](../.gitbook/assets/image%20%28161%29.png)
 
+解决的方式也很简单，重写5716规则给它加上`frequency`参数或者新建一条新规则使用这条规则做触发封禁。以下是重写5716规则，设置频率`frequency`为30次，告警等级`level`设置为10级，设置重写`overwrite`规则。修改完成，重启管理端服务。
 
+```text
+[root@wazuh-manager ~]# cat /var/ossec/etc/rules/local_rules.xml 
+<group name="ssh_deny">
+  <rule id="5716" level="10" frequency="20"  overwrite="yes">
+    <if_matched_sid>5700</if_matched_sid>
+    <match>^Failed|^error: PAM: Authentication</match>
+    <description>sshd: authentication failed.</description>
+  </rule>
+</group>
 
+```
 
+接着使用hydra进行暴力破解攻击，几秒之后就显示连接重置。
+
+![](../.gitbook/assets/image%20%28164%29.png)
+
+我们设置频率是20次，为什么在日志限制到达了84次，主要是管理端没有反应过来，hydra我设置了密码字典是1000条，它一秒发送好几十个攻击，管理端需要收集和处理日志，最后超过阈值就启动封禁。
+
+![](../.gitbook/assets/image%20%28163%29.png)
 
 
 
