@@ -84,6 +84,7 @@
 ## 虚拟机
 
 * [wazuh](xu-ni-ji/wazuh.md)
+* [misp](xu-ni-ji/misp.md)
 * [selks](xu-ni-ji/selks.md)
 * [siemonster](xu-ni-ji/siemonster.md)
 
