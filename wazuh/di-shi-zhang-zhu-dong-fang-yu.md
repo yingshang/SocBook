@@ -314,6 +314,57 @@ Mon Jul 19 10:44:32 EDT 2021 /var/ossec/active-response/bin/host-deny.sh delete 
   </rule>
 ```
 
+当我们继续往下寻找的时候，会找到5720规则，这其中`frequency`参数就是触发规则频率次数。
+
+```text
+  <rule id="5720" level="10" frequency="8">
+    <if_matched_sid>5716</if_matched_sid>
+    <same_source_ip />
+    <description>sshd: Multiple authentication failures.</description>
+    <mitre>
+      <id>T1110</id>
+    </mitre>
+    <group>authentication_failures,pci_dss_10.2.4,pci_dss_10.2.5,pci_dss_11.4,gpg13_7.1,gdpr_IV_35.7.d,gdpr_IV_32.2,hipaa_164.312.b,nist_800_53_AU.14,nist_800_53_AC.7,nist_800_53_SI.4,tsc_CC6.1,tsc_CC6.8,tsc_CC7.2,tsc_CC7.3,</group>
+  </rule>
+
+```
+
+所以我们只需将`active-response`触发的规则从5716改到5720。修改完成之后，需要重启管理端服务。
+
+```text
+[root@wazuh-manager opt]# cat  /var/ossec/etc/ossec.conf
+
+  <command>
+    <name>host-deny</name>
+    <executable>host-deny.sh</executable>
+    <expect>srcip</expect>
+    <timeout_allowed>yes</timeout_allowed>
+  </command>
+
+  <active-response>
+    <command>host-deny</command>
+    <location>local</location>
+    <rules_id>5720</rules_id>
+    <timeout>600</timeout>
+  </active-response>
+```
+
+使用hydra进行SSH暴力破解攻击
+
+![](../.gitbook/assets/image%20%28162%29.png)
+
+在告警日志可以看到相关信息，其中特别注意就是`firedtimes`参数，这个参数就是触发的次数，也就是超过5716规则定义8次才触发这条规则。
+
+![](../.gitbook/assets/image%20%28163%29.png)
+
+但是这里面就有一个非常奇怪的问题，第一次SSH攻击如果没有中止，就会一直发送，看到下面5716的`firedtimes`参数的值已经到达80次，只有等我停止SSH攻击的时候，就会生成5720规则，这样就会导致攻击识别判断逻辑有问题。
+
+![](../.gitbook/assets/image%20%28161%29.png)
+
+
+
+
+
 
 
 

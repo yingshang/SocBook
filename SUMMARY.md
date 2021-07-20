@@ -63,7 +63,7 @@
   * [SCA](wazuh/di-qi-zhang-an-quan-ji-xian-jian-ce/7.1-sca.md)
   * [openscap](wazuh/di-qi-zhang-an-quan-ji-xian-jian-ce/untitled.md)
 * [命令内容监控](wazuh/di-ba-zhang-ming-ling-nei-rong-jian-kong.md)
-* [主机安全漏洞检测](wazuh/di-jiu-zhang-an-quan-lou-dong-jian-kong-he-jian-ce.md)
+* [安全漏洞检测](wazuh/di-jiu-zhang-an-quan-lou-dong-jian-kong-he-jian-ce.md)
 * [主动防御](wazuh/di-shi-zhang-zhu-dong-fang-yu.md)
 * [自定义规则](wazuh/di-shi-er-zhang-zi-ding-yi-gui-ze.md)
 
