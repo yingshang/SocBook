@@ -77,7 +77,7 @@
 * [sysmon](an-quan-shen-ji/sysmon.md)
 * [osquery](an-quan-shen-ji/osquery.md)
 
-## 图形可视化
+## 指标可视化 <a id="tu-xing-ke-shi-hua"></a>
 
 * [Untitled](tu-xing-ke-shi-hua/untitled.md)
 
