@@ -78,6 +78,8 @@ total 88
 -rwxr-x---. 1 root ossec  1220 Apr 22 09:39 route-null.sh
 ```
 
+## linux host封禁
+
 `host-deny.sh`脚本主要将来源IP地址加入到`/etc/hosts.deny`文件里面，Linux系统就会禁止来源IP地址访问。
 
 ```text
@@ -380,6 +382,52 @@ Mon Jul 19 10:44:32 EDT 2021 /var/ossec/active-response/bin/host-deny.sh delete 
 我们设置频率是20次，为什么在日志限制到达了84次，主要是管理端没有反应过来，hydra我设置了密码字典是1000条，它一秒发送好几十个攻击，管理端需要收集和处理日志，最后超过阈值就启动封禁。
 
 ![](../.gitbook/assets/image%20%28163%29.png)
+
+## Linux 防火墙封禁
+
+
+
+```text
+  <active-response>
+    <command>firewall-drop</command>
+    <location>local</location>
+    <rules_id>5716</rules_id>
+    <timeout>60</timeout>
+  </active-response>
+```
+
+
+
+![](../.gitbook/assets/image%20%28168%29.png)
+
+
+
+![](../.gitbook/assets/image%20%28169%29.png)
+
+
+
+![](../.gitbook/assets/image%20%28167%29.png)
+
+
+
+```text
+  <active-response>
+    <command>firewall-drop</command>
+    <location>all</location>
+    <rules_id>5716</rules_id>
+    <timeout>60</timeout>
+  </active-response>
+```
+
+
+
+![](../.gitbook/assets/image%20%28166%29.png)
+
+
+
+## windows封禁
+
+
 
 
 
