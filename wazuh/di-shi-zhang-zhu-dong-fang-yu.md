@@ -427,6 +427,33 @@ Mon Jul 19 10:44:32 EDT 2021 /var/ossec/active-response/bin/host-deny.sh delete 
 
 ## windows封禁
 
+打开本地安全策略
+
+![](../.gitbook/assets/image%20%28171%29.png)
+
+windows日志有两种`evelogchanel`和`evenlog`默认情况下，ossec是采集`evelogchanel`类型。
+
+```text
+  <localfile>
+    <location>Application</location>
+    <log_format>eventchannel</log_format>
+  </localfile>
+
+  <localfile>
+    <location>Security</location>
+    <log_format>eventchannel</log_format>
+    <query>Event/System[EventID != 5145 and EventID != 5156 and EventID != 5447 and
+      EventID != 4656 and EventID != 4658 and EventID != 4663 and EventID != 4660 and
+      EventID != 4670 and EventID != 4690 and EventID != 4703 and EventID != 4907 and
+      EventID != 5152 and EventID != 5157]</query>
+  </localfile>
+
+  <localfile>
+    <location>System</location>
+    <log_format>eventchannel</log_format>
+  </localfile>
+```
+
 
 
 
