@@ -398,15 +398,15 @@ Mon Jul 19 10:44:32 EDT 2021 /var/ossec/active-response/bin/host-deny.sh delete 
 
 
 
-![](../.gitbook/assets/image%20%28168%29.png)
+![](../.gitbook/assets/image%20%28173%29.png)
 
 
 
-![](../.gitbook/assets/image%20%28170%29.png)
+![](../.gitbook/assets/image%20%28176%29.png)
 
 
 
-![](../.gitbook/assets/image%20%28167%29.png)
+![](../.gitbook/assets/image%20%28169%29.png)
 
 
 
@@ -427,9 +427,13 @@ Mon Jul 19 10:44:32 EDT 2021 /var/ossec/active-response/bin/host-deny.sh delete 
 
 ## windows封禁
 
+打开
+
+![](../.gitbook/assets/image%20%28175%29.png)
+
 打开本地安全策略
 
-![](../.gitbook/assets/image%20%28171%29.png)
+![](../.gitbook/assets/image%20%28177%29.png)
 
 windows日志有两种`evelogchanel`和`evenlog`默认情况下，ossec是采集`evelogchanel`类型。
 
@@ -453,6 +457,64 @@ windows日志有两种`evelogchanel`和`evenlog`默认情况下，ossec是采集
     <log_format>eventchannel</log_format>
   </localfile>
 ```
+
+在windows的事件管理器中，其中对于登录失败的审计事件的ID是4625
+
+![](../.gitbook/assets/image%20%28167%29.png)
+
+
+
+![](../.gitbook/assets/image%20%28168%29.png)
+
+
+
+![](../.gitbook/assets/image%20%28172%29.png)
+
+![](../.gitbook/assets/image%20%28179%29.png)
+
+
+
+```text
+  <active-response>
+    <command>netsh-win-2016</command>
+    <location>local</location>
+    <rules_id>60122</rules_id>
+    <timeout>100</timeout>
+  </active-response>
+```
+
+
+
+```text
+[root@wazuh-manager rules]# /var/ossec/bin/agent_control -L
+
+Wazuh agent_control. Available active responses:
+
+   Response name: netsh30, command: netsh.cmd
+
+[root@wazuh-manager rules]# /var/ossec/bin/agent_control -l
+
+Wazuh agent_control. List of available agents:
+   ID: 000, Name: wazuh-manager (server), IP: 127.0.0.1, Active/Local
+   ID: 006, Name: wazuh-centos-agent, IP: any, Active
+   ID: 003, Name: wazuh-ubuntu-agent, IP: any, Disconnected
+   ID: 007, Name: win2008-agent, IP: any, Disconnected
+   ID: 008, Name: WIN-EMSHFJ78JTT, IP: any, Disconnected
+   ID: 009, Name: win2008, IP: any, Active
+
+List of agentless devices:
+
+[root@wazuh-manager rules]# /var/ossec/bin/agent_control -b 114.114.114.2 -f  netsh-win-2016100 -u 009
+
+Wazuh agent_control: Running active response 'netsh-win-2016100' on: 009
+
+```
+
+![](../.gitbook/assets/image%20%28171%29.png)
+
+
+
+![](../.gitbook/assets/image%20%28170%29.png)
 
 
 
