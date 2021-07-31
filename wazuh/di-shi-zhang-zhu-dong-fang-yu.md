@@ -408,7 +408,7 @@ Mon Jul 19 10:44:32 EDT 2021 /var/ossec/active-response/bin/host-deny.sh delete 
 
 ![](../.gitbook/assets/image%20%28169%29.png)
 
-
+上面我们设置都是local，按照官方文档说明`local`只应用于当前代理端，`all`是应用所有代理端，接下来测试一下`all`的是否可以应用所有代理端。修改配置文件，设置`all`。
 
 ```text
   <active-response>
@@ -419,23 +419,21 @@ Mon Jul 19 10:44:32 EDT 2021 /var/ossec/active-response/bin/host-deny.sh delete 
   </active-response>
 ```
 
-
+使用hydra进行暴力破解攻击，一段时间后，查看centos代理端和Ubuntu代理端，会看到这两条机器的防火墙规则上面已经添加对IP（192.168.1.130）丢弃数据包规则。
 
 ![](../.gitbook/assets/image%20%28166%29.png)
 
-
-
 ## windows封禁
 
-打开
+打开系统设置，配置远程连接，允许远程计算机访问Windows服务器。
 
 ![](../.gitbook/assets/image%20%28175%29.png)
 
-打开本地安全策略
+打开本地安全策略，将审核策略全部设置为`成功，失败`，wazuh代理端会收集Windows审计日志。
 
 ![](../.gitbook/assets/image%20%28177%29.png)
 
-windows日志有两种`evelogchanel`和`evenlog`默认情况下，ossec是采集`evelogchanel`类型。
+windows日志有两种`evelogchanel`和`evenlog`默认情况下，wazuh收集windows日志是使用`evelogchanel`类型。测试结果表示`evelogchanel`类型是有些问题的，建议使用`evenlog`类型，这个后面会有案例说明。
 
 ```text
   <localfile>
@@ -458,15 +456,15 @@ windows日志有两种`evelogchanel`和`evenlog`默认情况下，ossec是采集
   </localfile>
 ```
 
-在windows的事件管理器中，其中对于登录失败的审计事件的ID是4625
+在windows的事件管理器中，对于远程登录失败的审计事件的ID是4625。
 
 ![](../.gitbook/assets/image%20%28167%29.png)
 
-
+在管理端会生成一条60122告警日志。
 
 ![](../.gitbook/assets/image%20%28168%29.png)
 
-
+使用json格式化这段日志，看到描述：**显示登录失败-未知用户或者错误密码**。
 
 ![](../.gitbook/assets/image%20%28172%29.png)
 
