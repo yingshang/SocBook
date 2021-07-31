@@ -385,7 +385,7 @@ Mon Jul 19 10:44:32 EDT 2021 /var/ossec/active-response/bin/host-deny.sh delete 
 
 ## Linux 防火墙封禁
 
-
+按照上面的步骤，在管理端配置主动防御，这个时候我们调用`firewall-drop.sh`脚本进行封禁，与hosts.deny不同，这个脚本是使用iptables添加拦截规则。设置完成之后，重启管理端服务。
 
 ```text
   <active-response>
@@ -396,15 +396,15 @@ Mon Jul 19 10:44:32 EDT 2021 /var/ossec/active-response/bin/host-deny.sh delete 
   </active-response>
 ```
 
-
+使用hydra对SSH服务进行暴力破解攻击。
 
 ![](../.gitbook/assets/image%20%28173%29.png)
 
-
+这时候查看主动防御日志，就可以看到已经调用`firewall-drop.sh`脚本封禁kali（192.168.1.130）的暴力破解攻击。
 
 ![](../.gitbook/assets/image%20%28176%29.png)
 
-
+使用命令`iptables -L INPUT`查看防火墙规则，可以看到有条对192.168.1.130这个IP丢弃（DROP）数据包规则。
 
 ![](../.gitbook/assets/image%20%28169%29.png)
 
