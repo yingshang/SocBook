@@ -433,7 +433,7 @@ Mon Jul 19 10:44:32 EDT 2021 /var/ossec/active-response/bin/host-deny.sh delete 
 
 ![](../.gitbook/assets/image%20%28177%29.png)
 
-windows日志有两种`evelogchanel`和`evenlog`默认情况下，wazuh收集windows日志是使用`evelogchanel`类型。测试结果表示`evelogchanel`类型是有些问题的，建议使用`evenlog`类型，这个后面会有案例说明。
+windows日志有两种`evelogchanel`和`evenlog`默认情况下，wazuh收集windows日志是使用`evelogchanel`类型。测试结果表示`evelogchanel`类型是有些问题的，建议使用`evenlog`类型，参考链接：[https://github.com/wazuh/wazuh/issues/4888](https://github.com/wazuh/wazuh/issues/4888)。
 
 ```text
   <localfile>
