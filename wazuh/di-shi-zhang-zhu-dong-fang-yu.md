@@ -542,7 +542,7 @@ Wazuh agent_control: Running active response 'netsh-win-2016100' on: 009
 
 
 
-![](../.gitbook/assets/image%20%28183%29.png)
+![](../.gitbook/assets/image%20%28185%29.png)
 
 
 
@@ -558,18 +558,17 @@ Wazuh agent_control: Running active response 'netsh-win-2016100' on: 009
 
 
 
-![](../.gitbook/assets/image%20%28182%29.png)
-
-
-
 ![](../.gitbook/assets/image%20%28184%29.png)
+
+
+
+![](../.gitbook/assets/image%20%28186%29.png)
 
 ## 自定义防御脚本
 
-这个路径就是share目录下面，我原本想法是同步脚本过去，然后就执行
+在管理端配置文件新增执行命令内容，`sshdeny.sh`脚本基于原始`firewall-drop.sh`进行改造的，这个需求是因为原始脚本封禁会对整个IP进行封禁，也就是说如果误封的话，把业务端口干掉怎么办，所以需要改造爆破ssh服务就直接封禁攻击者不能访问22端口。
 
 ```text
-  #manager
   <command>
     <name>sshdeny</name>
     <executable>/var/ossec/etc/shared/sshdeny.sh</executable>
@@ -578,14 +577,11 @@ Wazuh agent_control: Running active response 'netsh-win-2016100' on: 009
   </command>
 ```
 
-看到路径没有，AR只能调用/var/ossec/active-response/bin/，那就说只能把脚本放到bin目录下面
+在centos代理端查看主动防御日志，可以发现它调用的路径是基于`/var/ossec/active-response/bin/`目录往后添加，那就说只能把脚本放到bin目录下面才可以执行。
 
-```text
-ossec-execd: INFO: Active response command not present: 
- '/var/ossec/active-response/bin//var/ossec/etc/shared/sshdeny.sh'. Not using it on this system.
-```
+![](../.gitbook/assets/image%20%28181%29.png)
 
-于是我将自定义脚本放在bin目录下
+于是管理端配置文件的`executable`只能写脚本的名字。因为执行封禁动作是在代理端执行，也就是说生产的时候需要用ansible将封禁脚本放到每个代理端的`/var/ossec/active-response/bin/`目录下面才可以执行封禁动作。
 
 ```text
   <command>
@@ -596,25 +592,306 @@ ossec-execd: INFO: Active response command not present:
   </command>
 ```
 
-于是就报错，提示没有权限执行失败
+复制`firewall-drop.sh`脚本。
 
 ```text
-ossec-execd: ERROR: (1312): Error executing '/var/ossec/active-response/bin/sshdeny.sh': Permission denied
+[root@wazuh-centos-agent ~]# cd /var/ossec/active-response/bin/
+[root@wazuh-centos-agent bin]# cp firewall-drop.sh sshdeny.sh
 ```
 
-于是我给脚本+x
+改造只封端口的脚本，具体内容看脚本注释。
 
 ```text
-chmod +x sshdeny.sh
+#!/bin/sh
+# Adds an IP to the iptables drop list (if linux)
+# Adds an IP to the ipfilter drop list (if solaris, freebsd or netbsd)
+# Adds an IP to the ipsec drop list (if aix)
+# Requirements: Linux with iptables, Solaris/FreeBSD/NetBSD with ipfilter or AIX with IPSec
+# Expect: srcip
+# Copyright (C) 2015-2019, Wazuh Inc.
+# Author: Ahmet Ozturk (ipfilter and IPSec)
+# Author: Daniel B. Cid (iptables)
+# Author: cgzones
+
+UNAME=`uname`
+ECHO="/bin/echo"
+GREP="/bin/grep"
+IPTABLES=""
+IP4TABLES="/sbin/iptables"
+IP6TABLES="/sbin/ip6tables"
+IPFILTER="/sbin/ipf"
+if [ "X$UNAME" = "XSunOS" ]; then
+    IPFILTER="/usr/sbin/ipf"
+fi
+GENFILT="/usr/sbin/genfilt"
+LSFILT="/usr/sbin/lsfilt"
+MKFILT="/usr/sbin/mkfilt"
+RMFILT="/usr/sbin/rmfilt"
+ARG1=""
+ARG2=""
+RULEID=""
+ACTION=$1
+USER=$2
+IP=$3
+PWD=`pwd`
+LOCK="${PWD}/fw-drop"
+LOCK_PID="${PWD}/fw-drop/pid"
+
+#取当前服务器的SSH端口
+port=`netstat -antlp | grep LISTEN | grep ssh | grep "0.0.0.0" | awk '{print $4}' | awk -F ":" '{print$2}'`
+
+
+LOCAL=`dirname $0`;
+cd $LOCAL
+cd ../
+filename=$(basename "$0")
+
+LOG_FILE="${PWD}/../logs/active-responses.log"
+
+#加上端口信息放到主动防御日志里面。
+echo "`date` $0 $1 $2 $3 $4 $5 $port" >> ${LOG_FILE}
+
+# Checking for an IP
+if [ "x${IP}" = "x" ]; then
+   echo "$0: <action> <username> <ip>"
+   exit 1;
+fi
+
+case "${IP}" in
+    *:* ) IPTABLES=$IP6TABLES;;
+    *.* ) IPTABLES=$IP4TABLES;;
+    * ) echo "`date` Unable to run active response (invalid IP: '${IP}')." >> ${LOG_FILE} && exit 1;;
+esac
+
+# This number should be more than enough (even if a hundred
+# instances of this script is ran together). If you have
+# a really loaded env, you can increase it to 75 or 100.
+MAX_ITERATION="50"
+
+# Lock function
+lock()
+{
+    i=0;
+    # Providing a lock.
+    while [ 1 ]; do
+        mkdir ${LOCK} > /dev/null 2>&1
+        MSL=$?
+        if [ "${MSL}" = "0" ]; then
+            # Lock acquired (setting the pid)
+            echo "$$" > ${LOCK_PID}
+            return;
+        fi
+
+        # Getting currently/saved PID locking the file
+        C_PID=`cat ${LOCK_PID} 2>/dev/null`
+        if [ "x" = "x${S_PID}" ]; then
+            S_PID=${C_PID}
+        fi
+
+        # Breaking out of the loop after X attempts
+        if [ "x${C_PID}" = "x${S_PID}" ]; then
+            i=`expr $i + 1`;
+        fi
+
+        sleep $i;
+
+        i=`expr $i + 1`;
+
+        # So i increments 2 by 2 if the pid does not change.
+        # If the pid keeps changing, we will increments one
+        # by one and fail after MAX_ITERACTION
+
+        if [ "$i" = "${MAX_ITERATION}" ]; then
+            kill="false"
+            for pid in `pgrep -f "${filename}"`; do
+                if [ "x${pid}" = "x${C_PID}" ]; then
+                    # Unlocking and exiting
+                    kill -9 ${C_PID}
+                    echo "`date` Killed process ${C_PID} holding lock." >> ${LOG_FILE}
+                    kill="true"
+                    unlock;
+                    i=0;
+                    S_PID="";
+                    break;
+                fi
+            done
+
+            if [ "x${kill}" = "xfalse" ]; then
+                echo "`date` Unable kill process ${C_PID} holding lock." >> ${LOG_FILE}
+                # Unlocking and exiting
+                unlock;
+                exit 1;
+            fi
+        fi
+    done
+}
+
+# Unlock function
+unlock()
+{
+   rm -rf ${LOCK}
+}
+
+
+
+# Blocking IP
+if [ "x${ACTION}" != "xadd" -a "x${ACTION}" != "xdelete" ]; then
+   echo "$0: invalid action: ${ACTION}"
+   exit 1;
+fi
+
+
+
+# 在原来的防火墙规则加上禁止目的端口号
+if [ "X${UNAME}" = "XLinux" ]; then
+ if [ "x${ACTION}" = "xadd" ]; then
+      ARG1="-I INPUT -p tcp --dport ${port} -s ${IP} -j DROP"
+      ARG2="-I FORWARD -p tcp --dport ${port} -s ${IP} -j DROP"
+   else
+      ARG1="-D INPUT -p tcp --dport ${port}  -s ${IP} -j DROP"
+      ARG2="-D FORWARD -p tcp --dport ${port}   -s ${IP} -j DROP"
+   fi
+
+
+   # Checking if iptables is present
+   if [ ! -x ${IPTABLES} ]; then
+      IPTABLES="/usr"${IPTABLES}
+      if [ ! -x ${IPTABLES} ]; then
+        echo "$0: can not find iptables"
+        exit 0;
+      fi
+   fi
+
+   # Executing and exiting
+   COUNT=0;
+   lock;
+   while [ 1 ]; do
+        ${IPTABLES} ${ARG1}
+        RES=$?
+        if [ $RES = 0 ]; then
+            break;
+        else
+            COUNT=`expr $COUNT + 1`;
+            echo "`date` Unable to run (iptables returning != $RES): $COUNT - $0 $1 $2 $3 $4 $5" >> ${LOG_FILE}
+            sleep $COUNT;
+
+            if [ $COUNT -gt 4 ]; then
+                break;
+            fi
+        fi
+   done
+
+   COUNT=0;
+   while [ 1 ]; do
+        ${IPTABLES} ${ARG2}
+        RES=$?
+        if [ $RES = 0 ]; then
+            break;
+        else
+            COUNT=`expr $COUNT + 1`;
+            echo "`date` Unable to run (iptables returning != $RES): $COUNT - $0 $1 $2 $3 $4 $5" >> ${LOG_FILE}
+            sleep $COUNT;
+
+            if [ $COUNT -gt 4 ]; then
+                break;
+            fi
+        fi
+   done
+   unlock;
+
+   exit 0;
+
+# FreeBSD, SunOS or NetBSD with ipfilter
+elif [ "X${UNAME}" = "XFreeBSD" -o "X${UNAME}" = "XSunOS" -o "X${UNAME}" = "XNetBSD" ]; then
+
+   # Checking if ipfilter is present
+   ls ${IPFILTER} >> /dev/null 2>&1
+   if [ $? != 0 ]; then
+      exit 0;
+   fi
+
+   # Checking if echo is present
+   ls ${ECHO} >> /dev/null 2>&1
+   if [ $? != 0 ]; then
+       exit 0;
+   fi
+
+   if [ "x${ACTION}" = "xadd" ]; then
+      ARG1="\"@1 block out quick from any to ${IP}\""
+      ARG2="\"@1 block in quick from ${IP} to any\""
+      IPFARG="${IPFILTER} -f -"
+   else
+      ARG1="\"@1 block out quick from any to ${IP}\""
+      ARG2="\"@1 block in quick from ${IP} to any\""
+      IPFARG="${IPFILTER} -rf -"
+   fi
+
+   # Executing it
+   eval ${ECHO} ${ARG1}| ${IPFARG}
+   eval ${ECHO} ${ARG2}| ${IPFARG}
+
+   exit 0;
+
+# AIX with ipsec
+elif [ "X${UNAME}" = "XAIX" ]; then
+
+  # Checking if genfilt is present
+  ls ${GENFILT} >> /dev/null 2>&1
+  if [ $? != 0 ]; then
+     exit 0;
+  fi
+
+  # Checking if lsfilt is present
+  ls ${LSFILT} >> /dev/null 2>&1
+  if [ $? != 0 ]; then
+     exit 0;
+  fi
+  # Checking if mkfilt is present
+  ls ${MKFILT} >> /dev/null 2>&1
+  if [ $? != 0 ]; then
+     exit 0;
+  fi
+
+  # Checking if rmfilt is present
+  ls ${RMFILT} >> /dev/null 2>&1
+  if [ $? != 0 ]; then
+     exit 0;
+  fi
+
+  if [ "x${ACTION}" = "xadd" ]; then
+    ARG1=" -v 4 -a D -s ${IP} -m 255.255.255.255 -d 0.0.0.0 -M 0.0.0.0 -w B -D \"Access Denied by OSSEC-HIDS\""
+    #Add filter to rule table
+    eval ${GENFILT} ${ARG1}
+
+    #Deactivate  and activate the filter rules.
+    eval ${MKFILT} -v 4 -d
+    eval ${MKFILT} -v 4 -u
+  else
+    # removing a specific rule is not so easy :(
+     eval ${LSFILT} -v 4 -O  | ${GREP} ${IP} |
+     while read -r LINE
+     do
+         RULEID=`${ECHO} ${LINE} | cut -f 1 -d "|"`
+         let RULEID=${RULEID}+1
+         ARG1=" -v 4 -n ${RULEID}"
+         eval ${RMFILT} ${ARG1}
+     done
+    #Deactivate  and activate the filter rules.
+    eval ${MKFILT} -v 4 -d
+    eval ${MKFILT} -v 4 -u
+  fi
+
+else
+    exit 0;
+fi
+
 ```
 
-然后爆破 
+配置好脚本之后，使用hydra进行暴力破解攻击，在centos代理端的防火墙规则上面已经添加封禁22端口规则。
 
-```text
-Fri Mar 27 10:34:39 CST 2020 /var/ossec/active-response/bin/sshdeny.sh add - 10.118.72.121 1585276479.269218026 100002 22 Fri Mar 27 10:35:12 CST 2020 /var/ossec/active-response/bin/sshdeny.sh delete - 10.118.72.121 1585276479.269218026 100002 22
-```
+![](../.gitbook/assets/image%20%28182%29.png)
 
-封端口的脚本
+
 
 
 
