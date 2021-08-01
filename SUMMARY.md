@@ -17,6 +17,7 @@
   * [管理端与代理端通信](wazuh/di-er-zhang-wazuh-an-zhuang/2.4-guan-li-duan-yu-dai-li-duan-tong-xin/README.md)
     * [LINUX系统通信](wazuh/di-er-zhang-wazuh-an-zhuang/2.4-guan-li-duan-yu-dai-li-duan-tong-xin/2.4.1-linux-xi-tong-tong-xin.md)
     * [Windows系统通信](wazuh/di-er-zhang-wazuh-an-zhuang/2.4-guan-li-duan-yu-dai-li-duan-tong-xin/2.4.2-windows-xi-tong-tong-xin.md)
+    * [无代理通信](wazuh/di-er-zhang-wazuh-an-zhuang/2.4-guan-li-duan-yu-dai-li-duan-tong-xin/wu-dai-li-tong-xin.md)
   * [puppet批量部署](wazuh/di-er-zhang-wazuh-an-zhuang/2.5-puppet-pi-liang-bu-shu/README.md)
     * [puppet server安装](wazuh/di-er-zhang-wazuh-an-zhuang/2.5-puppet-pi-liang-bu-shu/2.5.1-puppet-server-an-zhuang.md)
     * [wazuh管理端安装](wazuh/di-er-zhang-wazuh-an-zhuang/2.5-puppet-pi-liang-bu-shu/2.5.2-wazuh-guan-li-duan-an-zhuang.md)
@@ -27,7 +28,6 @@
     * [ansible Linux 安装](wazuh/di-er-zhang-wazuh-an-zhuang/2.6-ansible-pi-liang-bu-shu/2.6.1-ansible-linux-an-zhuang.md)
     * [ansible windows安装](wazuh/di-er-zhang-wazuh-an-zhuang/2.6-ansible-pi-liang-bu-shu/2.6.2-ansible-windows-an-zhuang.md)
     * [wazuh参数](wazuh/di-er-zhang-wazuh-an-zhuang/2.6-ansible-pi-liang-bu-shu/2.6.3-wazuh-can-shu.md)
-  * [无状态代理](wazuh/di-er-zhang-wazuh-an-zhuang/2.7-wu-zhuang-tai-dai-li.md)
 * [日志收集安装配置](wazuh/di-san-zhang-ri-zhi-shou-ji-an-zhuang-pei-zhi/README.md)
   * [代理端收集日志](wazuh/di-san-zhang-ri-zhi-shou-ji-an-zhuang-pei-zhi/3.1-dai-li-duan-shou-ji-ri-zhi/README.md)
     * [Linux日志收集](wazuh/di-san-zhang-ri-zhi-shou-ji-an-zhuang-pei-zhi/3.1-dai-li-duan-shou-ji-ri-zhi/3.1.1-linux-ri-zhi-shou-ji.md)
@@ -66,6 +66,7 @@
 * [安全漏洞检测](wazuh/di-jiu-zhang-an-quan-lou-dong-jian-kong-he-jian-ce.md)
 * [主动防御](wazuh/di-shi-zhang-zhu-dong-fang-yu.md)
 * [自定义规则](wazuh/di-shi-er-zhang-zi-ding-yi-gui-ze.md)
+* [第三方服务集成](wazuh/di-san-fang-fu-wu-ji-cheng.md)
 
 ## NIDS
 
@@ -80,6 +81,12 @@
 ## 指标可视化 <a id="tu-xing-ke-shi-hua"></a>
 
 * [Untitled](tu-xing-ke-shi-hua/untitled.md)
+
+## 告警手段
+
+* [wazuh邮件告警](gao-jing-shou-duan/wazuh-you-jian-gao-jing.md)
+* [ESalert告警](gao-jing-shou-duan/esalert-gao-jing.md)
+* [自定义告警](gao-jing-shou-duan/zi-ding-yi-gao-jing.md)
 
 ## 虚拟机
 
