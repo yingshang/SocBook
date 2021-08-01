@@ -530,7 +530,6 @@ Wazuh agent_control: Running active response 'netsh-win-2016100' on: 009
 
 1. 在对日志编码处理的时候，修改字段名字为srcip。（自定义规则展示）
 2. 采用`evenlog`日志模式。
-3. 1
 
 
 
@@ -565,13 +564,57 @@ Wazuh agent_control: Running active response 'netsh-win-2016100' on: 009
 
 ![](../.gitbook/assets/image%20%28184%29.png)
 
+## 自定义防御脚本
 
+这个路径就是share目录下面，我原本想法是同步脚本过去，然后就执行
 
+```text
+  #manager
+  <command>
+    <name>sshdeny</name>
+    <executable>/var/ossec/etc/shared/sshdeny.sh</executable>
+    <expect>srcip</expect>
+    <timeout_allowed>yes</timeout_allowed>
+  </command>
+```
 
+看到路径没有，AR只能调用/var/ossec/active-response/bin/，那就说只能把脚本放到bin目录下面
 
+```text
+ossec-execd: INFO: Active response command not present: 
+ '/var/ossec/active-response/bin//var/ossec/etc/shared/sshdeny.sh'. Not using it on this system.
+```
 
+于是我将自定义脚本放在bin目录下
 
+```text
+  <command>
+    <name>sshdeny</name>
+    <executable>sshdeny.sh</executable>
+    <expect>srcip</expect>
+    <timeout_allowed>yes</timeout_allowed>
+  </command>
+```
 
+于是就报错，提示没有权限执行失败
+
+```text
+ossec-execd: ERROR: (1312): Error executing '/var/ossec/active-response/bin/sshdeny.sh': Permission denied
+```
+
+于是我给脚本+x
+
+```text
+chmod +x sshdeny.sh
+```
+
+然后爆破 
+
+```text
+Fri Mar 27 10:34:39 CST 2020 /var/ossec/active-response/bin/sshdeny.sh add - 10.118.72.121 1585276479.269218026 100002 22 Fri Mar 27 10:35:12 CST 2020 /var/ossec/active-response/bin/sshdeny.sh delete - 10.118.72.121 1585276479.269218026 100002 22
+```
+
+封端口的脚本
 
 
 
