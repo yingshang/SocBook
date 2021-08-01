@@ -429,9 +429,9 @@ Mon Jul 19 10:44:32 EDT 2021 /var/ossec/active-response/bin/host-deny.sh delete 
 
 ![](../.gitbook/assets/image%20%28175%29.png)
 
-打开本地安全策略，将审核策略全部设置为`成功，失败`，wazuh代理端会收集Windows审计日志。
+打开本地安全策略，将审核登录事件策略设置为`成功，失败`，wazuh代理端会收集Windows登录日志。
 
-![](../.gitbook/assets/image%20%28177%29.png)
+![](../.gitbook/assets/image%20%28180%29.png)
 
 windows日志有两种`evelogchanel`和`evenlog`默认情况下，wazuh收集windows日志是使用`evelogchanel`类型。测试结果表示`evelogchanel`类型是有些问题的，建议使用`evenlog`类型，参考链接：[https://github.com/wazuh/wazuh/issues/4888](https://github.com/wazuh/wazuh/issues/4888)。
 
@@ -470,9 +470,16 @@ windows日志有两种`evelogchanel`和`evenlog`默认情况下，wazuh收集win
 
 ![](../.gitbook/assets/image%20%28179%29.png)
 
-
+根据上面远程计算机登录失败的告警ID是60122，设置主动防御的规则ID号为60122，拦截脚本选择`netsh-win-2016.cmd`。
 
 ```text
+  <command>
+    <name>netsh-win-2016</name>
+    <executable>netsh-win-2016.cmd</executable>
+    <expect>srcip</expect>
+    <timeout_allowed>yes</timeout_allowed>
+  </command>
+  
   <active-response>
     <command>netsh-win-2016</command>
     <location>local</location>
@@ -481,16 +488,18 @@ windows日志有两种`evelogchanel`和`evenlog`默认情况下，wazuh收集win
   </active-response>
 ```
 
-
+但是配置完成之后进行攻击，就会发现防御并没有触发。使用管理端进行手动封禁，测试脚本是否有效。
 
 ```text
-[root@wazuh-manager rules]# /var/ossec/bin/agent_control -L
+#查看当前主动防御有什么防御脚本
+[root@wazuh-manager ~]# /var/ossec/bin/agent_control -L
 
 Wazuh agent_control. Available active responses:
 
-   Response name: netsh30, command: netsh.cmd
+   Response name: netsh-win-2016100, command: netsh-win-2016.cmd
 
-[root@wazuh-manager rules]# /var/ossec/bin/agent_control -l
+#查看代理端信息，找到win2008的ID为009
+[root@wazuh-manager ~]# /var/ossec/bin/agent_control -l
 
 Wazuh agent_control. List of available agents:
    ID: 000, Name: wazuh-manager (server), IP: 127.0.0.1, Active/Local
@@ -502,17 +511,28 @@ Wazuh agent_control. List of available agents:
 
 List of agentless devices:
 
-[root@wazuh-manager rules]# /var/ossec/bin/agent_control -b 114.114.114.2 -f  netsh-win-2016100 -u 009
+#使用-b参数封禁IP，-f参数使用防御脚本，-u参数在那台代理端
+[root@wazuh-manager ~]# /var/ossec/bin/agent_control -b 114.114.114.2 -f  netsh-win-2016100 -u 009
 
 Wazuh agent_control: Running active response 'netsh-win-2016100' on: 009
 
 ```
 
+在Windows代理端查看主动防御日志，其中一开始我测试使用`netsh.cmd`脚本，发现无法应用于Windows2008，后使用`netsh-win-2016.cmd`脚本可以生效。
+
+![](../.gitbook/assets/image%20%28170%29.png)
+
+在防火墙入站规则添加了一条wazuh针对于114.114.114.2这个IP的封禁规则，
+
 ![](../.gitbook/assets/image%20%28171%29.png)
 
 
 
-![](../.gitbook/assets/image%20%28170%29.png)
+
+
+
+
+
 
 
 
