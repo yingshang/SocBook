@@ -488,7 +488,7 @@ windows日志有两种`evelogchanel`和`evenlog`默认情况下，wazuh收集win
   </active-response>
 ```
 
-但是配置完成之后进行攻击，就会发现防御并没有触发。使用管理端进行手动封禁，测试脚本是否有效。
+但是配置完成之后进行攻击，**就会发现防御并没有触发**。使用管理端进行手动封禁，测试脚本是否有效。
 
 ```text
 #查看当前主动防御有什么防御脚本
@@ -526,7 +526,36 @@ Wazuh agent_control: Running active response 'netsh-win-2016100' on: 009
 
 ![](../.gitbook/assets/image%20%28171%29.png)
 
+现在看起来脚本是没有问题的，查看[官方文档](https://documentation.wazuh.com/current/user-manual/reference/ossec-conf/commands.html#expect)发现`expect`参数如果日志没有srcip这个字段就会跳过主动防御拦截，而采用`evelogchanel`日志模式的IP字段就会变成`data.win.eventdata.ipAddress`字段，解决这个问题，有两种办法：
 
+1. 在对日志编码处理的时候，修改字段名字为srcip。（自定义规则展示）
+2. 采用`evenlog`日志模式。
+3. 1
+
+
+
+```text
+  <localfile>
+    <location>Security</location>
+    <log_format>eventlog</log_format>
+  </localfile>
+```
+
+
+
+![](../.gitbook/assets/image%20%28181%29.png)
+
+
+
+```text
+  <active-response>
+    <command>netsh-win-2016</command>
+    <location>local</location>
+    <rules_id>18130</rules_id>
+    <timeout>30</timeout>
+  </active-response>
+
+```
 
 
 
