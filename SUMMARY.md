@@ -68,9 +68,7 @@
 * [自定义规则](wazuh/di-shi-er-zhang-zi-ding-yi-gui-ze.md)
 * [第三方服务集成](wazuh/di-san-fang-fu-wu-ji-cheng.md)
 
-## NIDS
-
-* [suricata](nids/untitled.md)
+## suricata
 
 ## 安全审计
 
