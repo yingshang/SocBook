@@ -1,10 +1,6 @@
 # wazuh邮件告警
 
-[https://documentation.wazuh.com/current/user-manual/manager/automatic-reports.html](https://documentation.wazuh.com/current/user-manual/manager/automatic-reports.html)
-
-
-
-
+## 邮箱配置
 
 ```text
 [root@wazuh-manager ~]# yum install -y postfix mailx cyrus-sasl cyrus-sasl-plain
@@ -64,7 +60,7 @@ echo "Test mail from postfix" | mail -s "Test Postfix" -r "test@163.com" test@qq
 
 ![](../.gitbook/assets/image%20%28188%29.png)
 
-
+## 告警设置
 
 ```text
 <global>
@@ -89,6 +85,18 @@ echo "Test mail from postfix" | mail -s "Test Postfix" -r "test@163.com" test@qq
 
 
 ![](../.gitbook/assets/image%20%28187%29.png)
+
+## 细粒度告警
+
+
+
+[https://documentation.wazuh.com/current/user-manual/manager/manual-email-report/index.html](https://documentation.wazuh.com/current/user-manual/manager/manual-email-report/index.html)
+
+
+
+
+
+
 
 
 
