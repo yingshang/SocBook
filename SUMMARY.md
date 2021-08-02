@@ -59,13 +59,14 @@
   * [本地特征检测](wazuh/di-liu-zhang-yi-chang-heeyi-ruan-jian-jian-ce/6.1-ben-di-gui-ze-jian-ce.md)
   * [VirusTotal检测](wazuh/di-liu-zhang-yi-chang-heeyi-ruan-jian-jian-ce/6.2-virustotal-jian-ce.md)
   * [clamav检测](wazuh/di-liu-zhang-yi-chang-heeyi-ruan-jian-jian-ce/6.3-clamav-jian-ce.md)
+* [服务器详情](wazuh/fu-wu-qi-xiang-qing.md)
 * [安全基线检测](wazuh/di-qi-zhang-an-quan-ji-xian-jian-ce/README.md)
   * [SCA](wazuh/di-qi-zhang-an-quan-ji-xian-jian-ce/7.1-sca.md)
   * [openscap](wazuh/di-qi-zhang-an-quan-ji-xian-jian-ce/untitled.md)
 * [命令内容监控](wazuh/di-ba-zhang-ming-ling-nei-rong-jian-kong.md)
 * [安全漏洞检测](wazuh/di-jiu-zhang-an-quan-lou-dong-jian-kong-he-jian-ce.md)
 * [主动防御](wazuh/di-shi-zhang-zhu-dong-fang-yu.md)
-* [自定义规则](wazuh/di-shi-er-zhang-zi-ding-yi-gui-ze.md)
+* [规则集](wazuh/di-shi-er-zhang-zi-ding-yi-gui-ze.md)
 * [第三方服务集成](wazuh/di-san-fang-fu-wu-ji-cheng.md)
 
 ## suricata
