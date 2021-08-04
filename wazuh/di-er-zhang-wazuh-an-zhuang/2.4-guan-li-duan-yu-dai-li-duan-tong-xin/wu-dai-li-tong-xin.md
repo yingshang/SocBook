@@ -51,11 +51,26 @@ root@192.168.1.130
 
 ![](../../../.gitbook/assets/image%20%28195%29.png)
 
+在130服务器`/etc`目录新增test1文件，一分钟后就会收到文件**添加**告警日志。
 
+![](../../../.gitbook/assets/image%20%28203%29.png)
 
+修改130服务器`/etc`目录test文件，一分钟后就会收到文件**修改**告警日志。
 
+![](../../../.gitbook/assets/image%20%28201%29.png)
 
-### ssh\_generic\_diff
+删除130服务器`/etc`目录test文件，但是等了很久都没有告警日志，**才意识到这个模式只支持新增和修改文件的监控**。
+
+## ssh\_generic\_diff
+
+新增test3和test4文件。
+
+```text
+[root@agentless ~]# echo "test" > /etc/test3
+[root@agentless ~]# echo "testxx" > /etc/test4
+```
+
+修改管理端配置文件，使用`ssh_generic_diff`类型和使用`periodic_diff`模式。
 
 ```text
 <agentless>
@@ -63,19 +78,22 @@ root@192.168.1.130
   <frequency>60</frequency>
   <host>root@192.168.1.130</host>
   <state>periodic_diff</state>
-  <arguments>ls -la /etc; cat /etc/passwd</arguments>
+  <arguments>ls -la /etc/test3; cat /etc/test4</arguments>
 </agentless>
+
 ```
 
-
+配置完成之后重启管理端服务，查看ossec.log可以看到执行`ssh_generic_diff`检测。
 
 ![](../../../.gitbook/assets/image%20%28191%29.png)
 
-新增和修改文件不行，需要删除文件
+修改test3文件，一段时间后就会收到文件修改的日志。
 
-![](../../../.gitbook/assets/image%20%28200%29.png)
+![](../../../.gitbook/assets/image%20%28202%29.png)
 
+查看原始日志，可以发现日志内容类似收集command命令执行netstat -anltp日志。
 
+![](../../../.gitbook/assets/image%20%28205%29.png)
 
-
+我新增了一个测试文件以及后续删除这些文件都没有产生告警日志，**说明ssh\_generic\_diff模式只支持修改文件监控**。
 
