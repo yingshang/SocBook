@@ -59,7 +59,7 @@
   * [本地特征检测](wazuh/di-liu-zhang-yi-chang-heeyi-ruan-jian-jian-ce/6.1-ben-di-gui-ze-jian-ce.md)
   * [VirusTotal检测](wazuh/di-liu-zhang-yi-chang-heeyi-ruan-jian-jian-ce/6.2-virustotal-jian-ce.md)
   * [clamav检测](wazuh/di-liu-zhang-yi-chang-heeyi-ruan-jian-jian-ce/6.3-clamav-jian-ce.md)
-* [服务器详情](wazuh/fu-wu-qi-xiang-qing.md)
+* [资产信息](wazuh/fu-wu-qi-xiang-qing.md)
 * [安全基线检测](wazuh/di-qi-zhang-an-quan-ji-xian-jian-ce/README.md)
   * [SCA](wazuh/di-qi-zhang-an-quan-ji-xian-jian-ce/7.1-sca.md)
   * [openscap](wazuh/di-qi-zhang-an-quan-ji-xian-jian-ce/untitled.md)
