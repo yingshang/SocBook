@@ -97,3 +97,11 @@
 * [selks](xu-ni-ji/selks.md)
 * [siemonster](xu-ni-ji/siemonster.md)
 
+## clickhouse
+
+* [Untitled](clickhouse/untitled.md)
+
+## splunk
+
+* [Untitled](splunk/untitled.md)
+
