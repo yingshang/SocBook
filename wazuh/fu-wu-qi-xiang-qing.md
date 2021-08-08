@@ -1,6 +1,6 @@
 # 资产信息
 
-[https://documentation.wazuh.com/current/user-manual/capabilities/syscollector.html](https://documentation.wazuh.com/current/user-manual/capabilities/syscollector.html)
+wazuh提供收集代理端各种信息（软件安装信息、操作系统版本信息、端口开放信息）能力，通过`Syscollector`模块收集代理端信息整合起来存储到管理端的`sqlite`数据库中。
 
 
 
