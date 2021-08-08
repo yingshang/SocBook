@@ -1,9 +1,5 @@
 # kibana
 
-
-
-
-
 ## 代理端共享操作
 
 因为有wazuh-api这个服务存在，所以kibana的wazuh插件就会调用其API进行增删查改。在浏览器打开kibana界面（`http://192.168.1.201:5601/app/wazuh`）。
