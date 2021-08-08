@@ -107,7 +107,66 @@ sys\_processes表
 
 ![](../.gitbook/assets/image%20%28209%29.png)
 
+API
 
+```text
+[root@wazuh-manager db]# curl -u 'wazuh:FXKNECzaW4qOL$QO' -k -X GET "https://localhost:55000/security/user/authenticate?raw=true"
+eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ3YXp1aCIsImF1ZCI6IldhenVoIEFQSSBSRVNUIiwibmJmIjoxNjI4MzkyMTM4LCJleHAiOjE2MjgzOTMwMzgsInN1YiI6IndhenVoIiwicnVuX2FzIjpmYWxzZSwicmJhY19yb2xlcyI6WzFdLCJyYmFjX21vZGUiOiJ3aGl0ZSJ9.dN-4sQjSYHDaA_4OwosryYDQx0RbiPwp4rjgb5BL8pA
+[root@wazuh-manager db]# 
+[root@wazuh-manager db]# curl -k -X GET "https://localhost:55000/syscollector/006/netaddr?pretty=true" -H  "Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJ3YXp1aCIsImF1ZCI6IldhenVoIEFQSSBSRVNUIiwibmJmIjoxNjI4MzkyMTM4LCJleHAiOjE2MjgzOTMwMzgsInN1YiI6IndhenVoIiwicnVuX2FzIjpmYWxzZSwicmJhY19yb2xlcyI6WzFdLCJyYmFjX21vZGUiOiJ3aGl0ZSJ9.dN-4sQjSYHDaA_4OwosryYDQx0RbiPwp4rjgb5BL8pA"
+{
+   "data": {
+      "affected_items": [
+         {
+            "scan": {
+               "id": 1177088535
+            },
+            "netmask": "255.255.255.0",
+            "address": "192.168.1.101",
+            "iface": "ens33",
+            "proto": "ipv4",
+            "broadcast": "192.168.1.255",
+            "agent_id": "006"
+         },
+         {
+            "scan": {
+               "id": 1177088535
+            },
+            "netmask": "ffff:ffff:ffff:ffff::",
+            "address": "fe80::bef0:841f:6e49:6e07",
+            "iface": "ens33",
+            "proto": "ipv6",
+            "agent_id": "006"
+         },
+         {
+            "scan": {
+               "id": 1177088535
+            },
+            "netmask": "ffff:ffff:ffff:ffff::",
+            "address": "fe80::303f:b012:123f:6647",
+            "iface": "ens33",
+            "proto": "ipv6",
+            "agent_id": "006"
+         },
+         {
+            "scan": {
+               "id": 1177088535
+            },
+            "netmask": "ffff:ffff:ffff:ffff::",
+            "address": "fe80::9dd4:5cb4:cd63:d841",
+            "iface": "ens33",
+            "proto": "ipv6",
+            "agent_id": "006"
+         }
+      ],
+      "total_affected_items": 4,
+      "total_failed_items": 0,
+      "failed_items": []
+   },
+   "message": "All specified syscollector information was returned",
+   "error": 0
+}
+```
 
 
 
