@@ -46,14 +46,14 @@ Aug  5 10:11:55 wazuh-centos-agent sshd[7650]: Accepted password for root from 1
 * **解码阶段（decode）**，分析日志类型，提取该日志的字段信息。
 * **规则匹配阶段（Rule match）**，根据解码阶段找到对应的规则文件，接着匹配关键字找到对应的告警规则。
 
-
+接下来说说具体处理流程，根据最终生成告警ID号5715，去寻找具体的规则匹配文件的位置。
 
 ```text
 [root@wazuh-manager ruleset]# grep "5715" -r *
 rules/0095-sshd_rules.xml:  <rule id="5715" level="3">
 ```
 
-
+查看`0095-sshd_rules.xml`文件，找到5715的内容，规则正则匹配`^Accepted|authenticated.$`日志内容，往上溯源规则发现5715的父ID是5700。
 
 ```text
   <rule id="5715" level="3">
@@ -68,7 +68,7 @@ rules/0095-sshd_rules.xml:  <rule id="5715" level="3">
   </rule>
 ```
 
-
+查看5700规则内容，找到`decoded_as`参数以及`sshd`参数内容，确定解码规则是关于sshd。
 
 ```text
   <rule id="5700" level="0" noalert="1">
@@ -77,7 +77,7 @@ rules/0095-sshd_rules.xml:  <rule id="5715" level="3">
   </rule>
 ```
 
-
+根据关键字找到解码文件（/var/ossec/ruleset/decoders/0310-ssh\_decoders.xml），以下内容是预解码阶段，确定该日志是使用`0310-ssh_decoders.xml`解码文件。
 
 ```text
 <decoder name="sshd">
@@ -85,7 +85,7 @@ rules/0095-sshd_rules.xml:  <rule id="5715" level="3">
 </decoder>
 ```
 
-
+使用正则表达式获取匹配的字段。
 
 ```text
 <decoder name="sshd-success">
@@ -96,8 +96,6 @@ rules/0095-sshd_rules.xml:  <rule id="5715" level="3">
   <fts>name, user, location</fts>
 </decoder>
 ```
-
-
 
 ## 自定义规则
 
