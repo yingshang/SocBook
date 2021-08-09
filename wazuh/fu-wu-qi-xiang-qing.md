@@ -74,7 +74,7 @@ wazuh提供收集代理端各种信息（软件安装信息、操作系统版本
     <tr>
       <td style="text-align:center">ports</td>
       <td style="text-align:center">yes</td>
-      <td style="text-align:left">&#x662F;&#x5426;&#x6536;&#x96C6;&#x7AEF;&#x53E3;&#x5F00;&#x653E;&#x4FE1;&#x606F;&#xFF0C; <b>all=&#x2019;no&#x2019;&#x8BBE;&#x7F6E;&#x53EA;&#x6536;&#x96C6;&#x76D1;&#x542C;&#x7AEF;&#x53E3;&#x3002;</b>
+      <td style="text-align:left">&#x662F;&#x5426;&#x6536;&#x96C6;&#x7AEF;&#x53E3;&#x5F00;&#x653E;&#x4FE1;&#x606F;&#xFF0C; <b>all=&#x2019;no&#x2019;&#x8BBE;&#x7F6E;&#x53EA;&#x6536;&#x96C6;&#x76D1;&#x542C;&#x7AEF;&#x53E3;&#x4FE1;&#x606F;&#x3002;</b>
       </td>
     </tr>
     <tr>
