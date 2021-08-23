@@ -93,6 +93,7 @@
 
 ## 虚拟机
 
+* [ossim](xu-ni-ji/ossim.md)
 * [wazuh](xu-ni-ji/wazuh.md)
 * [misp](xu-ni-ji/misp.md)
 * [selks](xu-ni-ji/selks.md)
