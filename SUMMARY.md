@@ -69,6 +69,7 @@
 * [规则集](wazuh/di-shi-er-zhang-zi-ding-yi-gui-ze.md)
 * [第三方服务集成](wazuh/di-san-fang-fu-wu-ji-cheng.md)
 * [容器安全](wazuh/rong-qi-an-quan.md)
+* [其他问题](wazuh/qi-ta-wen-ti.md)
 
 ## suricata
 
