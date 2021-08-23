@@ -24,6 +24,15 @@
 
 
 
+```text
+[root@wazuh-manager ~]# /var/ossec/bin/update_ruleset
+### Wazuh ruleset ###
+ERROR: 	Download Error:HTTPSConnectionPool(host='github.com', port=443): Max retries exceeded with url: /wazuh/wazuh-ruleset/archive/4.1.zip (Caused by NewConnectionError('<urllib3.connection.HTTPSConnection object at 0x7fa48fc43520>: Failed to establish a new connection: [Errno 111] Connection refused')).
+Exit.
+```
+
+
+
 ## 日志调试
 
 从代理端`secure`日志文件提取SSH登录日志做日志编码和规则告警测试。
