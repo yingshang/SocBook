@@ -57,7 +57,7 @@
   * [实战操作](wazuh/di-wu-zhang-wen-jian-wan-zheng-xing-jian-kong/5.2-shi-zhan-yan-lian.md)
 * [资产信息监控](wazuh/fu-wu-qi-xiang-qing.md)
 * [异常和恶意软件检测](wazuh/di-liu-zhang-yi-chang-heeyi-ruan-jian-jian-ce/README.md)
-  * [本地特征检测](wazuh/di-liu-zhang-yi-chang-heeyi-ruan-jian-jian-ce/6.1-ben-di-gui-ze-jian-ce.md)
+  * [本地样本特征检测](wazuh/di-liu-zhang-yi-chang-heeyi-ruan-jian-jian-ce/6.1-ben-di-gui-ze-jian-ce.md)
   * [VirusTotal检测](wazuh/di-liu-zhang-yi-chang-heeyi-ruan-jian-jian-ce/6.2-virustotal-jian-ce.md)
   * [clamav检测](wazuh/di-liu-zhang-yi-chang-heeyi-ruan-jian-jian-ce/6.3-clamav-jian-ce.md)
 * [安全基线检测](wazuh/di-qi-zhang-an-quan-ji-xian-jian-ce/README.md)
