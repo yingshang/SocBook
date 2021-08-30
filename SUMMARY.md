@@ -79,12 +79,6 @@
 * [sysmon](an-quan-shen-ji/sysmon.md)
 * [osquery](an-quan-shen-ji/osquery.md)
 
-## 指标可视化 <a id="tu-xing-ke-shi-hua"></a>
-
-* [kibana](tu-xing-ke-shi-hua/untitled.md)
-* [splunk](tu-xing-ke-shi-hua/splunk.md)
-* [grafana](tu-xing-ke-shi-hua/grafana.md)
-
 ## 告警手段
 
 * [wazuh邮件告警](gao-jing-shou-duan/wazuh-you-jian-gao-jing.md)
@@ -106,4 +100,10 @@
 ## splunk
 
 * [Untitled](splunk/untitled.md)
+
+## 指标可视化 <a id="tu-xing-ke-shi-hua"></a>
+
+* [kibana](tu-xing-ke-shi-hua/untitled.md)
+* [splunk](tu-xing-ke-shi-hua/splunk.md)
+* [grafana](tu-xing-ke-shi-hua/grafana.md)
 
