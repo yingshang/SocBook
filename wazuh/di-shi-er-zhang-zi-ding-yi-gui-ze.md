@@ -246,7 +246,29 @@ rules/0095-sshd_rules.xml:  <rule id="5715" level="3">
   </tbody>
 </table>
 
+#### decoder
 
+定义解码器的名字，这个名字根据自身需求进行编写。例子如下：
+
+```text
+<decoder name="test">
+  ...
+</decoder>
+```
+
+#### parent
+
+定义父级解码器，这个父级解码器下接多个子级解码器。例子如下：
+
+```text
+<decoder name="test">
+  <program_name>^test</program_name>
+</decoder>
+
+<decoder name="test-son">
+  <parent>test</parent>
+</decoder>
+```
 
 
 
