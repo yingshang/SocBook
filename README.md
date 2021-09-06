@@ -20,11 +20,4 @@ GitHub地址：[https://github.com/yingshang/siemBook](https://github.com/yingsh
 
 **PS：有什么不懂的问题或者建议提issue给我就可以了。**
 
-\*\*\*\*
-
-\*\*\*\*
-
-\*\*\*\*
-
-\*\*\*\*
 
