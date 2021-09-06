@@ -22,7 +22,7 @@
     └── local_rules.xml
 ```
 
-不过使用update\_ruleset命令进行规则更新会更新失败，因为需要科学上网才可以。
+不过使用update\_ruleset命令进行规则更新会失败，因为需要科学上网，而且这个功能在4.2版本之后将会废弃。
 
 ```text
 [root@wazuh-manager ~]# /var/ossec/bin/update_ruleset
@@ -251,7 +251,7 @@ rules/0095-sshd_rules.xml:  <rule id="5715" level="3">
 定义解码器的名字，这个名字根据自身需求进行编写。例子如下：
 
 ```text
-<decoder name="test">
+<decoder name="demo">
   ...
 </decoder>
 ```
@@ -261,13 +261,19 @@ rules/0095-sshd_rules.xml:  <rule id="5715" level="3">
 定义父级解码器，这个父级解码器下接多个子级解码器。例子如下：
 
 ```text
-<decoder name="test">
-  <program_name>^test</program_name>
+<decoder name="demo">
+  <program_name>^python</program_name>
 </decoder>
 
-<decoder name="test-son">
-  <parent>test</parent>
+<decoder name="demo1">
+  <parent>demo</parent>
 </decoder>
+```
+
+#### prematch
+
+```text
+Mon  6 10:26:52 localhost python[1234]: predata username 'admin' end
 ```
 
 
