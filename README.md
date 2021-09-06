@@ -4,7 +4,7 @@
 
 个人博客：[https://www.freebuf.com/author/%E9%99%8C%E5%BA%A6?type=article](https://www.freebuf.com/author/%E9%99%8C%E5%BA%A6?type=article)
 
-GitHub地址：[https://github.com/yingshang/siemBook](https://github.com/yingshang/siemBook)          （**一定要star！！！！**）
+GitHub地址：[https://github.com/yingshang/siemBook](https://github.com/yingshang/siemBook) （**一定要star！！！！**）
 
 对于siem部署和使用指南这一书在上年就已经完成了大部分编写，现在直接在网上跟大家见面。说实话，对于这本书是否面世，我其实一直很纠结的，有两个原因：
 
@@ -19,5 +19,4 @@ GitHub地址：[https://github.com/yingshang/siemBook](https://github.com/yingsh
 ![](.gitbook/assets/mm_reward_qrcode_1627651911856.png)
 
 **PS：有什么不懂的问题或者建议提issue给我就可以了。**
-
 

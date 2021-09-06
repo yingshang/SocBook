@@ -71,8 +71,6 @@
 * [容器安全](wazuh/rong-qi-an-quan.md)
 * [其他问题](wazuh/qi-ta-wen-ti.md)
 
-## suricata
-
 ## 安全审计
 
 * [audit](an-quan-shen-ji/audit.md)

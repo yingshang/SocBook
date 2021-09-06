@@ -22,7 +22,7 @@
     └── local_rules.xml
 ```
 
-
+不过使用update\_ruleset命令进行规则更新会更新失败，因为需要科学上网才可以。
 
 ```text
 [root@wazuh-manager ~]# /var/ossec/bin/update_ruleset
@@ -108,7 +108,157 @@ rules/0095-sshd_rules.xml:  <rule id="5715" level="3">
 
 ## 自定义规则
 
-### 参数配置
+### 解码语法
+
+
+
+
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align:center">&#x6807;&#x7B7E;</th>
+      <th style="text-align:center">&#x53C2;&#x6570;&#x540D;</th>
+      <th style="text-align:center">&#x53C2;&#x6570;&#x503C;</th>
+      <th style="text-align:center">&#x63CF;&#x8FF0;</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align:center">decoder</td>
+      <td style="text-align:center">name</td>
+      <td style="text-align:center">&#x968F;&#x4FBF;&#x586B;</td>
+      <td style="text-align:center">&#x5B9A;&#x4E49;&#x89E3;&#x7801;&#x5668;&#x7684;&#x540D;&#x5B57;</td>
+    </tr>
+    <tr>
+      <td style="text-align:center">parent</td>
+      <td style="text-align:center">&#x65E0;</td>
+      <td style="text-align:center">&#x7236;&#x7EA7;&#x89E3;&#x7801;&#x5668;&#x540D;&#x5B57;</td>
+      <td style="text-align:center">&#x5B9A;&#x4E49;&#x89E3;&#x7801;&#x5668;&#x8C03;&#x7528;&#x7236;&#x7EA7;&#x5185;&#x5BB9;&#xFF0C;&#x975E;&#x5FC5;&#x9009;&#x3002;</td>
+    </tr>
+    <tr>
+      <td style="text-align:center">accumulate</td>
+      <td style="text-align:center">&#x65E0;</td>
+      <td style="text-align:center">&lt;accumulate /&gt;</td>
+      <td style="text-align:center">&#x5141;&#x8BB8;&#x89E3;&#x6790;&#x76F8;&#x540C;&#x6807;&#x7B7E;&#x7684;&#x591A;&#x884C;&#x65E5;&#x5FD7;&#xFF0C;&#x975E;&#x5FC5;&#x9009;&#x3002;</td>
+    </tr>
+    <tr>
+      <td style="text-align:center">program_name</td>
+      <td style="text-align:center">type</td>
+      <td style="text-align:center">
+        <p>osmatch</p>
+        <p>osregex</p>
+        <p>pcre2</p>
+      </td>
+      <td style="text-align:center">&#x5B9A;&#x4E49;&#x89E3;&#x7801;&#x5668;&#x4F7F;&#x7528;&#x7684;&#x6B63;&#x5219;&#x5339;&#x914D;&#x6A21;&#x5F0F;&#xFF0C;&#x6709;&#x4E09;&#x79CD;&#x6B63;&#x5219;&#x5339;&#x914D;&#x6A21;&#x5F0F;&#xFF0C;&#x5982;&#x679C;type&#x4E3A;&#x7A7A;&#xFF0C;&#x9ED8;&#x8BA4;&#x9009;&#x62E9;osmatch&#x6B63;&#x5219;&#x5339;&#x914D;&#x6A21;&#x5F0F;&#xFF0C;&#x975E;&#x5FC5;&#x9009;&#x3002;</td>
+    </tr>
+    <tr>
+      <td style="text-align:center">prematch</td>
+      <td style="text-align:center">offset</td>
+      <td style="text-align:center">
+        <p>after_regex</p>
+        <p>after_parent</p>
+      </td>
+      <td style="text-align:center"></td>
+    </tr>
+    <tr>
+      <td style="text-align:center"></td>
+      <td style="text-align:center">type</td>
+      <td style="text-align:center">
+        <p>osregex</p>
+        <p>pcre2</p>
+      </td>
+      <td style="text-align:center">&#x9ED8;&#x8BA4;osregex</td>
+    </tr>
+    <tr>
+      <td style="text-align:center">regex</td>
+      <td style="text-align:center">offset</td>
+      <td style="text-align:center">
+        <p>after_regex</p>
+        <p>after_parent</p>
+        <p>after_prematch</p>
+      </td>
+      <td style="text-align:center"></td>
+    </tr>
+    <tr>
+      <td style="text-align:center"></td>
+      <td style="text-align:center">type</td>
+      <td style="text-align:center">
+        <p>osregex</p>
+        <p>pcre2</p>
+      </td>
+      <td style="text-align:center"></td>
+    </tr>
+    <tr>
+      <td style="text-align:center">order</td>
+      <td style="text-align:center">&#x65E0;</td>
+      <td style="text-align:center"></td>
+      <td style="text-align:center"></td>
+    </tr>
+    <tr>
+      <td style="text-align:center">fts</td>
+      <td style="text-align:center"></td>
+      <td style="text-align:center"></td>
+      <td style="text-align:center"></td>
+    </tr>
+    <tr>
+      <td style="text-align:center">ftscomment</td>
+      <td style="text-align:center"></td>
+      <td style="text-align:center"></td>
+      <td style="text-align:center"></td>
+    </tr>
+    <tr>
+      <td style="text-align:center">plugin_decoder</td>
+      <td style="text-align:center"></td>
+      <td style="text-align:center"></td>
+      <td style="text-align:center"></td>
+    </tr>
+    <tr>
+      <td style="text-align:center">use_own_name</td>
+      <td style="text-align:center"></td>
+      <td style="text-align:center"></td>
+      <td style="text-align:center"></td>
+    </tr>
+    <tr>
+      <td style="text-align:center">json_null_field</td>
+      <td style="text-align:center"></td>
+      <td style="text-align:center"></td>
+      <td style="text-align:center"></td>
+    </tr>
+    <tr>
+      <td style="text-align:center">json_array_structure</td>
+      <td style="text-align:center"></td>
+      <td style="text-align:center"></td>
+      <td style="text-align:center"></td>
+    </tr>
+    <tr>
+      <td style="text-align:center">var</td>
+      <td style="text-align:center"></td>
+      <td style="text-align:center"></td>
+      <td style="text-align:center"></td>
+    </tr>
+    <tr>
+      <td style="text-align:center">type</td>
+      <td style="text-align:center"></td>
+      <td style="text-align:center"></td>
+      <td style="text-align:center"></td>
+    </tr>
+  </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+### 规则语法
+
+
 
 
 

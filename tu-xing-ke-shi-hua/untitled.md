@@ -22,9 +22,9 @@
 
 添加centos代理端到centos群组。
 
-![](../.gitbook/assets/image%20%28104%29.png)
+![](../.gitbook/assets/image%20%28107%29.png)
 
-![&#x6DFB;&#x52A0;&#x4EE3;&#x7406;&#x7AEF;&#x5B8C;&#x6210;](../.gitbook/assets/image%20%28103%29.png)
+![&#x6DFB;&#x52A0;&#x4EE3;&#x7406;&#x7AEF;&#x5B8C;&#x6210;](../.gitbook/assets/image%20%28103%29%20%281%29.png)
 
 查看Files选项卡，可以看到有三个文件，这三个文件待会详细说明。
 

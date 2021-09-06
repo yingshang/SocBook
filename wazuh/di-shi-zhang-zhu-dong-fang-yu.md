@@ -558,7 +558,7 @@ Wazuh agent_control: Running active response 'netsh-win-2016100' on: 009
 
 
 
-![](../.gitbook/assets/image%20%28184%29.png)
+![](../.gitbook/assets/image%20%28184%29%20%281%29.png)
 
 
 
