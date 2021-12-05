@@ -2,17 +2,17 @@
 
 为了能够进行主机安全漏洞检测，代理端需收集本地所有的软件版本信息，将这些信息发送到管理端后对安全漏洞数据库进行匹配关联，一旦匹配成功就会生成关于该软件的安全漏洞信息告警。其中这个安全漏洞数据库会自动创建，从以下漏洞信息网站来源获取：
 
-* [https://canonical.com](https://canonical.com/)：Ubuntu系统CVE漏洞信息库。
-* [https://www.redhat.com](https://www.redhat.com/)：Redhat和Centos的CVE漏洞信息库。
-* [https://www.debian.org](https://www.debian.org/)：Debian操作系统CVE漏洞信息库。
-* [https://nvd.nist.gov/](https://nvd.nist.gov/)：美国国家CVE漏洞信息库。
-* [https://feed.wazuh.com/](https://feed.wazuh.com/)：Wazuh官方CVE和Windows的漏洞信息库。
+* [https://canonical.com](https://canonical.com)：Ubuntu系统CVE漏洞信息库。
+* [https://www.redhat.com](https://www.redhat.com)：Redhat和Centos的CVE漏洞信息库。
+* [https://www.debian.org](https://www.debian.org)：Debian操作系统CVE漏洞信息库。
+* [https://nvd.nist.gov/](https://nvd.nist.gov)：美国国家CVE漏洞信息库。
+* [https://feed.wazuh.com/](https://feed.wazuh.com)：Wazuh官方CVE和Windows的漏洞信息库。
 
 管理端会自动更新安全漏洞数据库，以此来响应最新的安全漏洞告警和补丁更新。
 
 使用配置文件共享，下发开启软件服务信息收集功能。配置完成之后，重启管理端服务。
 
-```text
+```
 [root@wazuh-manager opt]# cat /var/ossec/etc/shared/default/agent.conf 
 <agent_config>
   <wodle name="syscollector">
@@ -26,13 +26,13 @@
 
 如果要扫描Windows代理端的话，需要额外添加`hotfixes`参数。
 
-```text
+```
   <hotfixes>yes</hotfixes>
 ```
 
 修改管理端配置文件，开启漏洞扫描功能和各操作系统的扫描。为了说明，我设置了扫描时间为1分钟，更新漏洞数据信息为1分钟。修改完成之后，重新管理端服务。
 
-```text
+```
   <vulnerability-detector>
     <enabled>yes</enabled>
     <interval>1m</interval>
@@ -85,7 +85,7 @@
 
 但是查看日志会发现一件事情，就是服务器拖取不到漏洞信息，因为这些信息都是外网IP，延迟比较大。
 
-```text
+```
 [root@wazuh-manager ossec]# tail -f /var/ossec/logs/ossec.log 
 2021/07/17 00:47:00 wazuh-modulesd:vulnerability-detector: INFO: (5430): The update of the 'Ubuntu Focal' feed finished successfully.
 2021/07/17 00:47:00 wazuh-modulesd:vulnerability-detector: INFO: (5400): Starting 'Debian Stretch' database update.
@@ -106,13 +106,13 @@
 
 创建一个存放漏洞信息数据库目录。
 
-```text
+```
 mkdir /opt/vul
 ```
 
 使用python脚本进行下载。
 
-```text
+```
 import requests
 import os
 
@@ -191,7 +191,7 @@ if __name__ == '__main__':
 
 安全漏洞信息数据库如下：
 
-```text
+```
 [root@wazuh-manager opt]# tree /opt/vul
 /opt/vul
 ├── com.redhat.rhsa-RHEL5.xml.bz2
@@ -232,7 +232,7 @@ if __name__ == '__main__':
 
 重新更改配置文件内容，使用本地安全漏洞信息数据库。
 
-```text
+```
 <vulnerability-detector>
     <enabled>yes</enabled>
     <interval>1m</interval>
@@ -289,9 +289,7 @@ if __name__ == '__main__':
 
 一段时间之后，收到了安全漏洞告警的日志。
 
-![](../.gitbook/assets/image%20%28157%29.png)
-
-
+![](<../.gitbook/assets/image (153).png>)
 
 
 

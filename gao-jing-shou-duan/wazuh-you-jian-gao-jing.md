@@ -2,7 +2,7 @@
 
 ## 邮箱配置
 
-```text
+```
 [root@wazuh-manager ~]# yum install -y postfix mailx cyrus-sasl cyrus-sasl-plain
 Loaded plugins: fastestmirror
 Loading mirror speeds from cached hostfile
@@ -19,7 +19,7 @@ Nothing to do
 
 /etc/postfix/main.cf，
 
-```text
+```
 #修改
 inet_interfaces = all
 #最下面添加
@@ -33,36 +33,36 @@ smtp_sasl_type = cyrus
 
 /etc/postfix/sasl\_passwd
 
-```text
+```
 [smtp.163.com]:25  test@163.com:123456
 ```
 
 使用postmap产生数据库文件
 
-```text
+```
 [root@wazuh-manager ~]# postmap /etc/postfix/sasl_passwd
 ```
 
 
 
-```text
+```
 [root@wazuh-manager ~]# service postfix restart
 Redirecting to /bin/systemctl restart postfix.service
 ```
 
 
 
-```text
+```
 echo "Test mail from postfix" | mail -s "Test Postfix" -r "test@163.com" test@qq.com
 ```
 
 
 
-![](../.gitbook/assets/image%20%28188%29.png)
+![](<../.gitbook/assets/image (182).png>)
 
 ## 告警设置
 
-```text
+```
 <global>
     <jsonout_output>yes</jsonout_output>
     <alerts_log>yes</alerts_log>
@@ -84,15 +84,13 @@ echo "Test mail from postfix" | mail -s "Test Postfix" -r "test@163.com" test@qq
 
 
 
-![](../.gitbook/assets/image%20%28187%29.png)
+![](<../.gitbook/assets/image (183).png>)
 
 ## 细粒度告警
 
 
 
 [https://documentation.wazuh.com/current/user-manual/manager/manual-email-report/index.html](https://documentation.wazuh.com/current/user-manual/manager/manual-email-report/index.html)
-
-
 
 
 

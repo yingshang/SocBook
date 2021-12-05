@@ -9,54 +9,19 @@
 
 说明一下主动防御这些标签作用。
 
-<table>
-  <thead>
-    <tr>
-      <th style="text-align:center">&#x6807;&#x7B7E;</th>
-      <th style="text-align:left">&#x4F5C;&#x7528;</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="text-align:center">command</td>
-      <td style="text-align:left">&#x5B9A;&#x4E49;&#x8981;&#x4F7F;&#x7528;&#x7684;&#x62E6;&#x622A;&#x811A;&#x672C;&#x3002;</td>
-    </tr>
-    <tr>
-      <td style="text-align:center">location</td>
-      <td style="text-align:left">
-        <p>&#x5B9A;&#x4E49;&#x89E6;&#x53D1;&#x89C4;&#x5219;&#x7684;&#x4F4D;&#x7F6E;&#xFF0C;&#x5176;&#x4E2D;&#x6709;&#x56DB;&#x79CD;&#x9009;&#x578B;&#xFF1A;local&#x3001;server&#x3001;&#x67D0;&#x4EE3;&#x7406;&#x7AEF;ID&#x53F7;&#xFF0C;all&#x3002;</p>
-        <p><b>local</b>&#xFF1A;&#x89E6;&#x53D1;&#x89C4;&#x5219;&#x53EA;&#x5F71;&#x54CD;&#x5F53;&#x524D;&#x4EE3;&#x7406;&#x7AEF;&#x3002;</p>
-        <p><b>server</b>: &#x89E6;&#x53D1;&#x89C4;&#x5219;&#x5F71;&#x54CD;&#x7BA1;&#x7406;&#x7AEF;&#x3002;</p>
-        <p>&#x67D0;&#x4EE3;&#x7406;&#x7AEF;ID&#x53F7;: &#x89E6;&#x53D1;&#x89C4;&#x5219;&#x5F71;&#x54CD;&#x67D0;&#x4EE3;&#x7406;&#x7AEF;&#x3002;</p>
-        <p><b>all</b>: &#x89E6;&#x53D1;&#x89C4;&#x5219;&#x5F71;&#x54CD;&#x6240;&#x6709;&#x4EE3;&#x7406;&#x7AEF;&#xFF0C;<b>&#x7B49;&#x4E8E;&#x5168;&#x5C40;&#x5C01;&#x7981;</b>&#x3002;</p>
-      </td>
-    </tr>
-    <tr>
-      <td style="text-align:center">rules_id</td>
-      <td style="text-align:left">&#x5B9A;&#x4E49;&#x89E6;&#x53D1;&#x4E3B;&#x52A8;&#x9632;&#x5FA1;&#x7684;&#x89C4;&#x5219;ID&#x53F7;</td>
-    </tr>
-    <tr>
-      <td style="text-align:center">timeout</td>
-      <td style="text-align:left">&#x5B9A;&#x4E49;&#x4E3B;&#x52A8;&#x9632;&#x5FA1;&#x5468;&#x671F;&#x65F6;&#x95F4;&#x3002;</td>
-    </tr>
-    <tr>
-      <td style="text-align:center">level</td>
-      <td style="text-align:left">&#x5B9A;&#x4E49;&#x89E6;&#x53D1;&#x4E3B;&#x52A8;&#x9632;&#x5FA1;&#x7684;&#x544A;&#x8B66;&#x7B49;&#x7EA7;&#x3002;</td>
-    </tr>
-    <tr>
-      <td style="text-align:center">rules_group</td>
-      <td style="text-align:left">&#x5B9A;&#x4E49;&#x89E6;&#x53D1;&#x4E3B;&#x52A8;&#x9632;&#x5FA1;&#x7684;&#x89C4;&#x5219;&#x7EC4;&#xFF0C;&#x591A;&#x4E2A;&#x89C4;&#x5219;&#x7EC4;&#x4F7F;&#x7528; <b><code>|</code></b> &#x5206;&#x5272;&#x3002;</td>
-    </tr>
-    <tr>
-      <td style="text-align:center">repeated_offenders</td>
-      <td style="text-align:left">&#x5B9A;&#x4E49;&#x5A01;&#x80C1;&#x5BF9;&#x8C61;&#x591A;&#x6B21;&#x653B;&#x51FB;&#x7684;&#x65F6;&#x95F4;&#x9012;&#x589E;&#x5217;&#x8868;&#xFF0C;&#x6700;&#x591A;&#x53EF;&#x4EE5;&#x8BBE;&#x7F6E;5&#x4E2A;&#x9012;&#x589E;&#x60C5;&#x51B5;&#x3002;</td>
-    </tr>
-  </tbody>
-</table>
+|          标签         | 作用                                                                                                                                                                                                                                  |
+| :-----------------: | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|       command       | 定义要使用的拦截脚本。                                                                                                                                                                                                                         |
+|       location      | <p>定义触发规则的位置，其中有四种选型：local、server、某代理端ID号，all。</p><p><strong>local</strong>：触发规则只影响当前代理端。</p><p><strong>server</strong>: 触发规则影响管理端。</p><p>某代理端ID号: 触发规则影响某代理端。</p><p><strong>all</strong>: 触发规则影响所有代理端，<strong>等于全局封禁</strong>。</p> |
+|      rules\_id      | 定义触发主动防御的规则ID号                                                                                                                                                                                                                      |
+|       timeout       | 定义主动防御周期时间。                                                                                                                                                                                                                         |
+|        level        | 定义触发主动防御的告警等级。                                                                                                                                                                                                                      |
+|     rules\_group    | 定义触发主动防御的规则组，多个规则组使用  **`\|`**  分割。                                                                                                                                                                                                 |
+| repeated\_offenders | 定义威胁对象多次攻击的时间递增列表，最多可以设置5个递增情况。                                                                                                                                                                                                     |
 
 主动防御默认有以下的拦截脚本。
 
-```text
+```
 [root@wazuh-manager opt]# ls -l /var/ossec/active-response/bin/
 total 88
 -rwxr-x---. 1 root ossec  6746 Apr 22 09:39 default-firewall-drop.sh
@@ -82,7 +47,7 @@ total 88
 
 `host-deny.sh`脚本主要将来源IP地址加入到`/etc/hosts.deny`文件里面，Linux系统就会禁止来源IP地址访问。
 
-```text
+```
 [root@wazuh-manager opt]# cat /var/ossec/active-response/bin/host-deny.sh 
 #!/bin/sh
 # Adds an IP to the /etc/hosts.deny file
@@ -237,7 +202,7 @@ exit 1;
 
 这里配置文件例子就是使用了`host-deny.sh`拦截脚本，在`command`标签定义`host-deny`，提取来源IP地址，并且设置可以自动解锁封禁（`timeout_allowed`）。当触发规则为`5716`的时候，就会使用`host-deny`，并且封禁范围是当前代理端，封禁时间为600秒。
 
-```text
+```
 [root@wazuh-manager opt]# cat  /var/ossec/etc/ossec.conf
 
   <command>
@@ -257,11 +222,11 @@ exit 1;
 
 使用kali ssh到centos代理端，第一次连接输入错误的密码，第二次重连就会发现被代理端重置连接。
 
-![](../.gitbook/assets/image%20%28159%29.png)
+![](<../.gitbook/assets/image (154).png>)
 
 查看`/etc/hosts.deny`文件，就会发现攻击IP被添加上去。
 
-```text
+```
 [root@wazuh-centos-agent ~]# cat /etc/hosts.deny 
 #
 # hosts.deny	This file contains access rules which are used to
@@ -281,14 +246,14 @@ ALL:192.168.1.130
 
 查看主动防御的日志，就会发现攻击IP（192.168.1.130），攻击时间（1626705265.17483312），触发拦截规则（5716）。
 
-```text
+```
 [root@wazuh-centos-agent ~]# cat /var/ossec/logs/active-responses.log 
 Mon Jul 19 10:34:25 EDT 2021 /var/ossec/active-response/bin/host-deny.sh add - 192.168.1.130 1626705265.17483312 5716
 ```
 
 等待600秒之后，再次查看主动防御日志，就会看到来源IP地址会自动解禁。
 
-```text
+```
 [root@wazuh-centos-agent ~]# cat /var/ossec/logs/active-responses.log 
 Mon Jul 19 10:34:25 EDT 2021 /var/ossec/active-response/bin/host-deny.sh add - 192.168.1.130 1626705265.17483312 5716
 Mon Jul 19 10:44:32 EDT 2021 /var/ossec/active-response/bin/host-deny.sh delete - 192.168.1.130 1626705265.17483312 5716
@@ -296,13 +261,13 @@ Mon Jul 19 10:44:32 EDT 2021 /var/ossec/active-response/bin/host-deny.sh delete 
 
 查看管理端代理日志，找到关于5716的告警，显示的是ssh验证失败。
 
-![](../.gitbook/assets/image%20%28160%29.png)
+![](<../.gitbook/assets/image (156).png>)
 
 细心的朋友可能发现了，上面这么严格规则（输入错误一次就封禁），在生产环境的时候，访问SSH输入错误的密码是常见的行为，要是应用了这种规则，怕是要直接炸了，所以需要**引入允许错误次数机制**。但是查看`active-response`标签是没有错误次数限制的，这时候，我们需要查看5716告警规则写了什么。
 
 查看 `/var/ossec/ruleset/rules/0095-sshd_rules.xml`规则文件。
 
-```text
+```
   <rule id="5716" level="5">
     <if_sid>5700</if_sid>
     <match>^Failed|^error: PAM: Authentication</match>
@@ -316,7 +281,7 @@ Mon Jul 19 10:44:32 EDT 2021 /var/ossec/active-response/bin/host-deny.sh delete 
 
 当我们继续往下寻找的时候，会找到5720规则，这其中`frequency`参数就是触发规则频率次数。
 
-```text
+```
   <rule id="5720" level="10" frequency="8">
     <if_matched_sid>5716</if_matched_sid>
     <same_source_ip />
@@ -331,7 +296,7 @@ Mon Jul 19 10:44:32 EDT 2021 /var/ossec/active-response/bin/host-deny.sh delete 
 
 所以我们只需将`active-response`触发的规则从5716改到5720。修改完成之后，需要重启管理端服务。
 
-```text
+```
 [root@wazuh-manager opt]# cat  /var/ossec/etc/ossec.conf
 
   <command>
@@ -351,19 +316,19 @@ Mon Jul 19 10:44:32 EDT 2021 /var/ossec/active-response/bin/host-deny.sh delete 
 
 使用hydra进行SSH暴力破解攻击
 
-![](../.gitbook/assets/image%20%28162%29.png)
+![](<../.gitbook/assets/image (158).png>)
 
 在告警日志可以看到相关信息，其中特别注意就是`firedtimes`参数，这个参数就是触发的次数，也就是超过5716规则定义8次才触发这条规则。
 
-![](../.gitbook/assets/image%20%28165%29.png)
+![](<../.gitbook/assets/image (157).png>)
 
 但是这里面就有一个非常奇怪的问题，第一次SSH攻击如果没有中止，就会一直发送，看到下面5716的`firedtimes`参数的值已经到达80次，只有等我停止SSH攻击的时候，就会生成5720规则，这样就会导致攻击识别判断逻辑有问题。
 
-![](../.gitbook/assets/image%20%28161%29.png)
+![](<../.gitbook/assets/image (159).png>)
 
 解决的方式也很简单，重写5716规则给它加上`frequency`参数或者新建一条新规则使用这条规则做触发封禁。以下是重写5716规则，设置频率`frequency`为30次，告警等级`level`设置为10级，设置重写`overwrite`规则。修改完成，重启管理端服务。
 
-```text
+```
 [root@wazuh-manager ~]# cat /var/ossec/etc/rules/local_rules.xml 
 <group name="ssh_deny">
   <rule id="5716" level="10" frequency="20"  overwrite="yes">
@@ -377,17 +342,17 @@ Mon Jul 19 10:44:32 EDT 2021 /var/ossec/active-response/bin/host-deny.sh delete 
 
 接着使用hydra进行暴力破解攻击，几秒之后就显示连接重置。
 
-![](../.gitbook/assets/image%20%28164%29.png)
+![](<../.gitbook/assets/image (161).png>)
 
 我们设置频率是20次，为什么在日志限制到达了84次，主要是管理端没有反应过来，hydra我设置了密码字典是1000条，它一秒发送好几十个攻击，管理端需要收集和处理日志，最后超过阈值就启动封禁。
 
-![](../.gitbook/assets/image%20%28163%29.png)
+![](<../.gitbook/assets/image (160).png>)
 
 ## Linux 防火墙封禁
 
 按照上面的步骤，在管理端配置主动防御，这个时候我们调用`firewall-drop.sh`脚本进行封禁，与hosts.deny不同，这个脚本是使用iptables添加拦截规则。设置完成之后，重启管理端服务。
 
-```text
+```
   <active-response>
     <command>firewall-drop</command>
     <location>local</location>
@@ -398,19 +363,19 @@ Mon Jul 19 10:44:32 EDT 2021 /var/ossec/active-response/bin/host-deny.sh delete 
 
 使用hydra对SSH服务进行暴力破解攻击。
 
-![](../.gitbook/assets/image%20%28173%29.png)
+![](<../.gitbook/assets/image (163).png>)
 
 这时候查看主动防御日志，就可以看到已经调用`firewall-drop.sh`脚本封禁kali（192.168.1.130）的暴力破解攻击。
 
-![](../.gitbook/assets/image%20%28176%29.png)
+![](<../.gitbook/assets/image (164).png>)
 
 使用命令`iptables -L INPUT`查看防火墙规则，可以看到有条对192.168.1.130这个IP丢弃（DROP）数据包规则。
 
-![](../.gitbook/assets/image%20%28169%29.png)
+![](<../.gitbook/assets/image (162).png>)
 
 上面我们设置都是local，按照官方文档说明`local`只应用于当前代理端，`all`是应用所有代理端，接下来测试一下`all`的是否可以应用所有代理端。修改配置文件，设置`all`。
 
-```text
+```
   <active-response>
     <command>firewall-drop</command>
     <location>all</location>
@@ -421,21 +386,21 @@ Mon Jul 19 10:44:32 EDT 2021 /var/ossec/active-response/bin/host-deny.sh delete 
 
 使用hydra进行暴力破解攻击，一段时间后，查看centos代理端和Ubuntu代理端，会看到这两条机器的防火墙规则上面已经添加对IP（192.168.1.130）丢弃数据包规则。
 
-![](../.gitbook/assets/image%20%28166%29.png)
+![](<../.gitbook/assets/image (165).png>)
 
 ## windows封禁
 
 打开系统设置，配置远程连接，允许远程计算机访问Windows服务器。
 
-![](../.gitbook/assets/image%20%28175%29.png)
+![](<../.gitbook/assets/image (169).png>)
 
 打开本地安全策略，将审核登录事件策略设置为`成功，失败`，wazuh代理端会收集Windows登录日志。
 
-![](../.gitbook/assets/image%20%28180%29.png)
+![](<../.gitbook/assets/image (176).png>)
 
 windows日志有两种`evelogchanel`和`evenlog`默认情况下，wazuh收集windows日志是使用`evelogchanel`类型。测试结果表示`evelogchanel`类型是有些问题的，建议使用`evenlog`类型，参考链接：[https://github.com/wazuh/wazuh/issues/4888](https://github.com/wazuh/wazuh/issues/4888)。
 
-```text
+```
   <localfile>
     <location>Application</location>
     <log_format>eventchannel</log_format>
@@ -458,21 +423,21 @@ windows日志有两种`evelogchanel`和`evenlog`默认情况下，wazuh收集win
 
 在windows的事件管理器中，对于远程登录失败的审计事件的ID是4625。
 
-![](../.gitbook/assets/image%20%28167%29.png)
+![](<../.gitbook/assets/image (170).png>)
 
 在管理端会生成一条60122告警日志。
 
-![](../.gitbook/assets/image%20%28168%29.png)
+![](<../.gitbook/assets/image (171).png>)
 
 使用json格式化这段日志，看到描述：**显示登录失败-未知用户或者错误密码**。
 
-![](../.gitbook/assets/image%20%28172%29.png)
+![](<../.gitbook/assets/image (173).png>)
 
-![](../.gitbook/assets/image%20%28179%29.png)
+![](<../.gitbook/assets/image (172).png>)
 
 根据上面远程计算机登录失败的告警ID是60122，设置主动防御的规则ID号为60122，拦截脚本选择`netsh-win-2016.cmd`。
 
-```text
+```
   <command>
     <name>netsh-win-2016</name>
     <executable>netsh-win-2016.cmd</executable>
@@ -490,7 +455,7 @@ windows日志有两种`evelogchanel`和`evenlog`默认情况下，wazuh收集win
 
 但是配置完成之后进行攻击，**就会发现防御并没有触发**。使用管理端进行手动封禁，测试脚本是否有效。
 
-```text
+```
 #查看当前主动防御有什么防御脚本
 [root@wazuh-manager ~]# /var/ossec/bin/agent_control -L
 
@@ -520,11 +485,11 @@ Wazuh agent_control: Running active response 'netsh-win-2016100' on: 009
 
 在Windows代理端查看主动防御日志，其中一开始我测试使用`netsh.cmd`脚本，发现无法应用于Windows2008，后使用`netsh-win-2016.cmd`脚本可以生效。
 
-![](../.gitbook/assets/image%20%28170%29.png)
+![](<../.gitbook/assets/image (175).png>)
 
 在防火墙入站规则添加了一条wazuh针对于114.114.114.2这个IP的封禁规则，
 
-![](../.gitbook/assets/image%20%28171%29.png)
+![](<../.gitbook/assets/image (174).png>)
 
 现在看起来脚本是没有问题的，查看[官方文档](https://documentation.wazuh.com/current/user-manual/reference/ossec-conf/commands.html#expect)发现`expect`参数如果日志没有srcip这个字段就会跳过主动防御拦截，而采用`evelogchanel`日志模式的IP字段就会变成`data.win.eventdata.ipAddress`字段，解决这个问题，有两种办法：
 
@@ -533,7 +498,7 @@ Wazuh agent_control: Running active response 'netsh-win-2016100' on: 009
 
 
 
-```text
+```
   <localfile>
     <location>Security</location>
     <log_format>eventlog</log_format>
@@ -542,11 +507,11 @@ Wazuh agent_control: Running active response 'netsh-win-2016100' on: 009
 
 
 
-![](../.gitbook/assets/image%20%28185%29.png)
+![](<../.gitbook/assets/image (177).png>)
 
 
 
-```text
+```
   <active-response>
     <command>netsh-win-2016</command>
     <location>local</location>
@@ -558,17 +523,17 @@ Wazuh agent_control: Running active response 'netsh-win-2016100' on: 009
 
 
 
-![](../.gitbook/assets/image%20%28184%29%20%281%29.png)
+![](<../.gitbook/assets/image (179).png>)
 
 
 
-![](../.gitbook/assets/image%20%28186%29.png)
+![](<../.gitbook/assets/image (178).png>)
 
 ## 自定义防御脚本
 
 在管理端配置文件新增执行命令内容，`sshdeny.sh`脚本基于原始`firewall-drop.sh`进行改造的，这个需求是因为原始脚本封禁会对整个IP进行封禁，也就是说如果误封的话，把业务端口干掉怎么办，所以需要改造爆破ssh服务就直接封禁攻击者不能访问22端口。
 
-```text
+```
   <command>
     <name>sshdeny</name>
     <executable>/var/ossec/etc/shared/sshdeny.sh</executable>
@@ -579,11 +544,11 @@ Wazuh agent_control: Running active response 'netsh-win-2016100' on: 009
 
 在centos代理端查看主动防御日志，可以发现它调用的路径是基于`/var/ossec/active-response/bin/`目录往后添加，那就说只能把脚本放到bin目录下面才可以执行。
 
-![](../.gitbook/assets/image%20%28181%29.png)
+![](<../.gitbook/assets/image (180).png>)
 
 于是管理端配置文件的`executable`只能写脚本的名字。因为执行封禁动作是在代理端执行，也就是说生产的时候需要用ansible将封禁脚本放到每个代理端的`/var/ossec/active-response/bin/`目录下面才可以执行封禁动作。
 
-```text
+```
   <command>
     <name>sshdeny</name>
     <executable>sshdeny.sh</executable>
@@ -594,14 +559,14 @@ Wazuh agent_control: Running active response 'netsh-win-2016100' on: 009
 
 复制`firewall-drop.sh`脚本。
 
-```text
+```
 [root@wazuh-centos-agent ~]# cd /var/ossec/active-response/bin/
 [root@wazuh-centos-agent bin]# cp firewall-drop.sh sshdeny.sh
 ```
 
 改造只封端口的脚本，具体内容看脚本注释。
 
-```text
+```
 #!/bin/sh
 # Adds an IP to the iptables drop list (if linux)
 # Adds an IP to the ipfilter drop list (if solaris, freebsd or netbsd)
@@ -889,9 +854,7 @@ fi
 
 配置好脚本之后，使用hydra进行暴力破解攻击，在centos代理端的防火墙规则上面已经添加封禁22端口规则。
 
-![](../.gitbook/assets/image%20%28182%29.png)
-
-
+![](<../.gitbook/assets/image (181).png>)
 
 
 
