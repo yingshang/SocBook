@@ -8,7 +8,7 @@ GitHub地址：[https://github.com/yingshang/SocBook](https://github.com/yingsha
 
 
 
-对于此书一开始的编写主题是关于SIEM收集各个安全设备或服务日志进行分析统计，后面写着发现有些格局小了
+此书一开始编写内容是关于SIEM做安全监控，后面发现内容可以扩展到安全运营领域，也就是SOC建设，所以稍微把格局大一点，讲一下整个安全运营体系是怎么建设和落地的。
 
 
 
