@@ -1,7 +1,7 @@
 # Table of contents
 
 * [序言](README.md)
-* [SIEM、SOC](di-yi-zhang-chu-shi-siem.md)
+* [SIEM、SOC介绍](di-yi-zhang-chu-shi-siem.md)
 
 ## wazuh
 
