@@ -1,4 +1,4 @@
-# 序言
+# 安全运营指南
 
 该书的链接地址：[https://wushang0l.gitbook.io/soc/](https://wushang0l.gitbook.io/siem/)
 
