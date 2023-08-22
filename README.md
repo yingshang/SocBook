@@ -1,4 +1,5 @@
 # 序言
+**目前作者在忙学习其他事情，暂时没有时间更新，有问题提issue。**
 
 该书的链接地址：[https://icybersec.gitbook.io/soc/](https://icybersec.gitbook.io/soc/)
 
@@ -13,6 +14,8 @@ GitHub地址：[https://github.com/yingshang/SocBook](https://github.com/yingsha
 **该书适合人群：一个人安全部、乙方转甲方安全人员、安全运维人员。**
 
 **初定该书总页数500-600。有钱的朋友打赏一波\~\~有力的朋友点star一波\~你的star是我更新书籍的动力，star越多更新越快。**
+
+
 
 ***
 
