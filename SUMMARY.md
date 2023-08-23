@@ -1,110 +1,105 @@
 # Table of contents
 
 * [序言](README.md)
-* [SIEM、SOC介绍](di-yi-zhang-chu-shi-siem.md)
-
-## wazuh
-
-* [wazuh安装配置](wazuh/di-er-zhang-wazuh-an-zhuang/README.md)
-  * [系统架构](wazuh/di-er-zhang-wazuh-an-zhuang/2.1-xi-tong-jia-gou.md)
-  * [wazuh管理端安装](wazuh/di-er-zhang-wazuh-an-zhuang/2.2-wazuh-guan-li-duan/README.md)
-    * [Centos 7安装](wazuh/di-er-zhang-wazuh-an-zhuang/2.2-wazuh-guan-li-duan/2.2.1-centos7-an-zhuang.md)
-    * [Ubuntu 18.04安装](wazuh/di-er-zhang-wazuh-an-zhuang/2.2-wazuh-guan-li-duan/2.2.2-ubuntu-18.04-an-zhuang.md)
-  * [wazuh代理端安装](wazuh/di-er-zhang-wazuh-an-zhuang/2.3-wazuh-dai-li-duan-an-zhuang/README.md)
-    * [Centos 7安装](wazuh/di-er-zhang-wazuh-an-zhuang/2.3-wazuh-dai-li-duan-an-zhuang/2.3.1-centos-7-an-zhuang.md)
-    * [Ubuntu 18.04安装](wazuh/di-er-zhang-wazuh-an-zhuang/2.3-wazuh-dai-li-duan-an-zhuang/2.3.2-ubuntu-18.04-an-zhuang.md)
-    * [Windows安装](wazuh/di-er-zhang-wazuh-an-zhuang/2.3-wazuh-dai-li-duan-an-zhuang/2.3.3-windows-an-zhuang.md)
-  * [管理端与代理端通信](wazuh/di-er-zhang-wazuh-an-zhuang/2.4-guan-li-duan-yu-dai-li-duan-tong-xin/README.md)
-    * [LINUX系统通信](wazuh/di-er-zhang-wazuh-an-zhuang/2.4-guan-li-duan-yu-dai-li-duan-tong-xin/2.4.1-linux-xi-tong-tong-xin.md)
-    * [Windows系统通信](wazuh/di-er-zhang-wazuh-an-zhuang/2.4-guan-li-duan-yu-dai-li-duan-tong-xin/2.4.2-windows-xi-tong-tong-xin.md)
-    * [无代理通信](wazuh/di-er-zhang-wazuh-an-zhuang/2.4-guan-li-duan-yu-dai-li-duan-tong-xin/wu-dai-li-tong-xin.md)
-  * [puppet批量部署](wazuh/di-er-zhang-wazuh-an-zhuang/2.5-puppet-pi-liang-bu-shu/README.md)
-    * [puppet server安装](wazuh/di-er-zhang-wazuh-an-zhuang/2.5-puppet-pi-liang-bu-shu/2.5.1-puppet-server-an-zhuang.md)
-    * [wazuh管理端安装](wazuh/di-er-zhang-wazuh-an-zhuang/2.5-puppet-pi-liang-bu-shu/2.5.2-wazuh-guan-li-duan-an-zhuang.md)
-    * [Ubuntu代理端安装](wazuh/di-er-zhang-wazuh-an-zhuang/2.5-puppet-pi-liang-bu-shu/2.5.3-ubuntu-dai-li-duan-an-zhuang.md)
-    * [Windows代理端安装](wazuh/di-er-zhang-wazuh-an-zhuang/2.5-puppet-pi-liang-bu-shu/2.5.4-windows-dai-li-duan-an-zhuang.md)
-    * [wazuh参数](wazuh/di-er-zhang-wazuh-an-zhuang/2.5-puppet-pi-liang-bu-shu/2.5.5-wazuh-can-shu.md)
-  * [ansible批量部署](wazuh/di-er-zhang-wazuh-an-zhuang/2.6-ansible-pi-liang-bu-shu/README.md)
-    * [ansible Linux 安装](wazuh/di-er-zhang-wazuh-an-zhuang/2.6-ansible-pi-liang-bu-shu/2.6.1-ansible-linux-an-zhuang.md)
-    * [ansible windows安装](wazuh/di-er-zhang-wazuh-an-zhuang/2.6-ansible-pi-liang-bu-shu/2.6.2-ansible-windows-an-zhuang.md)
-    * [wazuh参数](wazuh/di-er-zhang-wazuh-an-zhuang/2.6-ansible-pi-liang-bu-shu/2.6.3-wazuh-can-shu.md)
-* [日志收集安装配置](wazuh/di-san-zhang-ri-zhi-shou-ji-an-zhuang-pei-zhi/README.md)
-  * [代理端收集日志](wazuh/di-san-zhang-ri-zhi-shou-ji-an-zhuang-pei-zhi/3.1-dai-li-duan-shou-ji-ri-zhi/README.md)
-    * [Linux日志收集](wazuh/di-san-zhang-ri-zhi-shou-ji-an-zhuang-pei-zhi/3.1-dai-li-duan-shou-ji-ri-zhi/3.1.1-linux-ri-zhi-shou-ji.md)
-    * [windows日志收集](wazuh/di-san-zhang-ri-zhi-shou-ji-an-zhuang-pei-zhi/3.1-dai-li-duan-shou-ji-ri-zhi/3.1.2-windows-ri-zhi-shou-ji.md)
-    * [远程日志收集](wazuh/di-san-zhang-ri-zhi-shou-ji-an-zhuang-pei-zhi/3.1-dai-li-duan-shou-ji-ri-zhi/3.1.3-yuan-cheng-ri-zhi-shou-ji.md)
-  * [EL(F)K安装配置](wazuh/di-san-zhang-ri-zhi-shou-ji-an-zhuang-pei-zhi/3.2-elfk-an-zhuang-pei-zhi/README.md)
-    * [elasticsearch](wazuh/di-san-zhang-ri-zhi-shou-ji-an-zhuang-pei-zhi/3.2-elfk-an-zhuang-pei-zhi/3.2.1-elasticsearch.md)
-    * [filebeat](wazuh/di-san-zhang-ri-zhi-shou-ji-an-zhuang-pei-zhi/3.2-elfk-an-zhuang-pei-zhi/3.2.2-filebeat.md)
-    * [kibana](wazuh/di-san-zhang-ri-zhi-shou-ji-an-zhuang-pei-zhi/3.2-elfk-an-zhuang-pei-zhi/3.2.3-kibana.md)
-    * [Logstash](wazuh/di-san-zhang-ri-zhi-shou-ji-an-zhuang-pei-zhi/3.2-elfk-an-zhuang-pei-zhi/3.2.4-logstash.md)
-  * [splunk安装配置](wazuh/di-san-zhang-ri-zhi-shou-ji-an-zhuang-pei-zhi/3.4-splunk-an-zhuang-pei-zhi/README.md)
-    * [splunk server](wazuh/di-san-zhang-ri-zhi-shou-ji-an-zhuang-pei-zhi/3.4-splunk-an-zhuang-pei-zhi/3.3.1-splunk-server.md)
-    * [splunk wazuh app](wazuh/di-san-zhang-ri-zhi-shou-ji-an-zhuang-pei-zhi/3.4-splunk-an-zhuang-pei-zhi/3.3.3-splunk-wazuh-app.md)
-    * [splunk forward](wazuh/di-san-zhang-ri-zhi-shou-ji-an-zhuang-pei-zhi/3.4-splunk-an-zhuang-pei-zhi/3.3.2-splunk-forward.md)
-  * [syslog导出](wazuh/di-san-zhang-ri-zhi-shou-ji-an-zhuang-pei-zhi/3.4-syslog-dao-chu.md)
-  * [ELK鉴权机制](wazuh/di-san-zhang-ri-zhi-shou-ji-an-zhuang-pei-zhi/3.5-elk-jian-quan-ji-zhi/README.md)
-    * [HTTP认证](wazuh/di-san-zhang-ri-zhi-shou-ji-an-zhuang-pei-zhi/3.5-elk-jian-quan-ji-zhi/3.5.1-http-ren-zheng.md)
-    * [HTTPS认证](wazuh/di-san-zhang-ri-zhi-shou-ji-an-zhuang-pei-zhi/3.5-elk-jian-quan-ji-zhi/3.5.2-https-ren-zheng.md)
-  * [wazuh鉴权机制](wazuh/di-san-zhang-ri-zhi-shou-ji-an-zhuang-pei-zhi/3.6-wazuh-jian-quan-ji-zhi/README.md)
-    * [管理端与代理端通信](wazuh/di-san-zhang-ri-zhi-shou-ji-an-zhuang-pei-zhi/3.6-wazuh-jian-quan-ji-zhi/3.6.1-guan-li-duan-yu-dai-li-duan-tong-xin.md)
-    * [wazuhAPI认证](wazuh/di-san-zhang-ri-zhi-shou-ji-an-zhuang-pei-zhi/3.6-wazuh-jian-quan-ji-zhi/3.6.2-wazuhapi-ren-zheng.md)
-* [wazuh共享和集群](wazuh/di-si-zhang-wazuh-tong-bu-he-ji-qun/README.md)
-  * [wazuh共享](wazuh/di-si-zhang-wazuh-tong-bu-he-ji-qun/4.1-wazuh-tong-bu.md)
-  * [wazuh集群](wazuh/di-si-zhang-wazuh-tong-bu-he-ji-qun/4.2-wazuh-ji-qun.md)
-* [文件完整性监控](wazuh/di-wu-zhang-wen-jian-wan-zheng-xing-jian-kong/README.md)
-  * [功能描述](wazuh/di-wu-zhang-wen-jian-wan-zheng-xing-jian-kong/5.1-gong-neng-miao-shu.md)
-  * [实战操作](wazuh/di-wu-zhang-wen-jian-wan-zheng-xing-jian-kong/5.2-shi-zhan-yan-lian.md)
-* [资产信息监控](wazuh/fu-wu-qi-xiang-qing.md)
-* [异常和恶意软件检测](wazuh/di-liu-zhang-yi-chang-heeyi-ruan-jian-jian-ce/README.md)
-  * [本地样本特征检测](wazuh/di-liu-zhang-yi-chang-heeyi-ruan-jian-jian-ce/6.1-ben-di-gui-ze-jian-ce.md)
-  * [VirusTotal检测](wazuh/di-liu-zhang-yi-chang-heeyi-ruan-jian-jian-ce/6.2-virustotal-jian-ce.md)
-  * [clamav检测](wazuh/di-liu-zhang-yi-chang-heeyi-ruan-jian-jian-ce/6.3-clamav-jian-ce.md)
-* [安全基线检测](wazuh/di-qi-zhang-an-quan-ji-xian-jian-ce/README.md)
-  * [SCA](wazuh/di-qi-zhang-an-quan-ji-xian-jian-ce/7.1-sca.md)
-  * [openscap](wazuh/di-qi-zhang-an-quan-ji-xian-jian-ce/untitled.md)
-* [命令内容监控](wazuh/di-ba-zhang-ming-ling-nei-rong-jian-kong.md)
-* [安全漏洞检测](wazuh/di-jiu-zhang-an-quan-lou-dong-jian-kong-he-jian-ce.md)
-* [主动防御](wazuh/di-shi-zhang-zhu-dong-fang-yu.md)
-* [规则集](wazuh/di-shi-er-zhang-zi-ding-yi-gui-ze.md)
-* [第三方服务集成](wazuh/di-san-fang-fu-wu-ji-cheng.md)
-* [容器安全](wazuh/rong-qi-an-quan.md)
-* [其他问题](wazuh/qi-ta-wen-ti.md)
-
-## 安全审计
-
-* [audit](an-quan-shen-ji/audit.md)
-* [sysmon](an-quan-shen-ji/sysmon.md)
-* [osquery](an-quan-shen-ji/osquery.md)
-
+## nids
+* [suricata](<nids/suricata/README.md>)
+## SIEM框架
+* [clickhouse](<SIEM框架/clickhouse/README.md>)
+* [splunk](<SIEM框架/splunk/README.md>)
+## SIEM集成虚拟机
+* [misp](<SIEM集成虚拟机/misp/README.md>)
+* [ossim](<SIEM集成虚拟机/ossim/README.md>)
+* [selks](<SIEM集成虚拟机/selks/README.md>)
+* [siemonster](<SIEM集成虚拟机/siemonster/README.md>)
+* [wazuh](<SIEM集成虚拟机/wazuh/README.md>)
 ## 告警手段
-
-* [wazuh邮件告警](gao-jing-shou-duan/wazuh-you-jian-gao-jing.md)
-* [ESalert告警](gao-jing-shou-duan/esalert-gao-jing.md)
-* [自定义告警](gao-jing-shou-duan/zi-ding-yi-gao-jing.md)
-
-## suricata
-
-* [1](suricata/1.md)
-
-## 集成虚拟机
-
-* [ossim](ji-cheng-xu-ni-ji/ossim.md)
-* [wazuh](ji-cheng-xu-ni-ji/wazuh.md)
-* [misp](ji-cheng-xu-ni-ji/misp.md)
-* [selks](ji-cheng-xu-ni-ji/selks.md)
-* [siemonster](ji-cheng-xu-ni-ji/siemonster.md)
-
-## clickhouse
-
-* [Untitled](clickhouse/untitled.md)
-
-## splunk
-
-* [Untitled](splunk/untitled.md)
-
-## 指标可视化 <a href="#tu-xing-ke-shi-hua" id="tu-xing-ke-shi-hua"></a>
-
-* [kibana](tu-xing-ke-shi-hua/untitled.md)
-* [splunk](tu-xing-ke-shi-hua/splunk.md)
-* [grafana](tu-xing-ke-shi-hua/grafana.md)
+* [ESalert告警](<告警手段/ESalert告警.md>)
+* [wazuh邮件告警](<告警手段/wazuh邮件告警.md>)
+* [自定义告警](<告警手段/自定义告警.md>)
+## 安全审计
+* [README](<安全审计/README.md>)
+* [audit](<安全审计/audit.md>)
+* [osquery](<安全审计/osquery.md>)
+* [sysmon](<安全审计/sysmon.md>)
+## 指标可视化
+* [grafana](<指标可视化/grafana.md>)
+* [splunk](<指标可视化/splunk.md>)
+* [untitled](<指标可视化/untitled.md>)
+## 第一章 序言
+* [README](<第一章 序言/README.md>)
+## 第七章 安全基线检测
+* [README](<第七章 安全基线检测/README.md>)
+* [7.1 SCA](<第七章 安全基线检测/7.1 SCA.md>)
+* [7.2 openscap](<第七章 安全基线检测/7.2 openscap.md>)
+## 第三章 日志收集安装配置
+* [3.1 代理端收集日志](<第三章 日志收集安装配置/3.1 代理端收集日志/README.md>)
+  * [Linux日志收集](<第三章 日志收集安装配置/3.1 代理端收集日志/Linux日志收集.md>)
+  * [windows日志收集](<第三章 日志收集安装配置/3.1 代理端收集日志/windows日志收集.md>)
+  * [日志收集安装配置](<第三章 日志收集安装配置/3.1 代理端收集日志/日志收集安装配置.md>)
+  * [远程日志收集](<第三章 日志收集安装配置/3.1 代理端收集日志/远程日志收集.md>)
+* [3.2 EL(F)K安装配置](<第三章 日志收集安装配置/3.2 EL(F)K安装配置/README.md>)
+  * [3.2.4 Logstash](<第三章 日志收集安装配置/3.2 EL(F)K安装配置/3.2.4 Logstash.md>)
+  * [3.2.5 es集群](<第三章 日志收集安装配置/3.2 EL(F)K安装配置/3.2.5 es集群.md>)
+  * [elasticsearch](<第三章 日志收集安装配置/3.2 EL(F)K安装配置/elasticsearch.md>)
+  * [filebeat](<第三章 日志收集安装配置/3.2 EL(F)K安装配置/filebeat.md>)
+  * [kibana](<第三章 日志收集安装配置/3.2 EL(F)K安装配置/kibana.md>)
+* [3.3 EL(F)K安装配置（开源）](<第三章 日志收集安装配置/3.3 EL(F)K安装配置（开源）/README.md>)
+* [3.4 splunk安装配置](<第三章 日志收集安装配置/3.4 splunk安装配置/README.md>)
+  * [3.3.1 splunk server](<第三章 日志收集安装配置/3.4 splunk安装配置/3.3.1 splunk server.md>)
+  * [3.3.2 splunk wazuh app](<第三章 日志收集安装配置/3.4 splunk安装配置/3.3.2 splunk wazuh app.md>)
+  * [3.3.3 splunk forward](<第三章 日志收集安装配置/3.4 splunk安装配置/3.3.3 splunk forward.md>)
+* [3.5 ELK鉴权机制](<第三章 日志收集安装配置/3.5 ELK鉴权机制/README.md>)
+  * [3.5.1 HTTP认证](<第三章 日志收集安装配置/3.5 ELK鉴权机制/3.5.1 HTTP认证.md>)
+  * [3.5.2 HTTPS认证](<第三章 日志收集安装配置/3.5 ELK鉴权机制/3.5.2 HTTPS认证.md>)
+* [3.6 wazuh鉴权机制](<第三章 日志收集安装配置/3.6 wazuh鉴权机制/README.md>)
+  * [3.6.1 管理端与代理端通信](<第三章 日志收集安装配置/3.6 wazuh鉴权机制/3.6.1 管理端与代理端通信.md>)
+  * [3.6.2 wazuhAPI认证](<第三章 日志收集安装配置/3.6 wazuh鉴权机制/3.6.2 wazuhAPI认证.md>)
+* [3.7 syslog导出](<第三章 日志收集安装配置/3.7 syslog导出/README.md>)
+## 第九章 主机安全漏洞检测
+* [第九章 主机安全漏洞检测](<第九章 主机安全漏洞检测/第九章 主机安全漏洞检测/README.md>)
+  * [9.1 配置漏洞扫描](<第九章 主机安全漏洞检测/第九章 主机安全漏洞检测/9.1 配置漏洞扫描.md>)
+## 第二章 wazuh安装配置
+* [README](<第二章 wazuh安装配置/README.md>)
+* [2.1 系统架构](<第二章 wazuh安装配置/2.1 系统架构/README.md>)
+* [2.2 wazuh管理端安装](<第二章 wazuh安装配置/2.2 wazuh管理端安装/README.md>)
+  * [2.2.1 Centos 7安装](<第二章 wazuh安装配置/2.2 wazuh管理端安装/2.2.1 Centos 7安装.md>)
+  * [2.2.2 Ubuntu 18.04安装](<第二章 wazuh安装配置/2.2 wazuh管理端安装/2.2.2 Ubuntu 18.04安装.md>)
+* [2.3 wazuh代理端安装](<第二章 wazuh安装配置/2.3 wazuh代理端安装/README.md>)
+  * [2.3.3 Windows安装](<第二章 wazuh安装配置/2.3 wazuh代理端安装/2.3.3 Windows安装.md>)
+  * [2.3.1 Centos 7安装](<第二章 wazuh安装配置/2.3 wazuh代理端安装/2.3.1 Centos 7安装.md>)
+  * [2.3.2 Ubuntu 18.04安装](<第二章 wazuh安装配置/2.3 wazuh代理端安装/2.3.2 Ubuntu 18.04安装.md>)
+* [2.4 管理端与代理端通信](<第二章 wazuh安装配置/2.4 管理端与代理端通信/README.md>)
+  * [2.4.1 LINUX系统通信](<第二章 wazuh安装配置/2.4 管理端与代理端通信/2.4.1 LINUX系统通信.md>)
+  * [2.4.2 Windows系统通信](<第二章 wazuh安装配置/2.4 管理端与代理端通信/2.4.2 Windows系统通信.md>)
+* [2.5 puppet批量部署](<第二章 wazuh安装配置/2.5 puppet批量部署/README.md>)
+  * [2.5.1 puppet server安装](<第二章 wazuh安装配置/2.5 puppet批量部署/2.5.1 puppet server安装.md>)
+  * [2.5.2 wazuh管理端安装](<第二章 wazuh安装配置/2.5 puppet批量部署/2.5.2 wazuh管理端安装.md>)
+  * [2.5.3 Ubuntu代理端安装](<第二章 wazuh安装配置/2.5 puppet批量部署/2.5.3 Ubuntu代理端安装.md>)
+  * [2.5.4 Windows代理端安装](<第二章 wazuh安装配置/2.5 puppet批量部署/2.5.4 Windows代理端安装.md>)
+  * [2.5.5 wazuh参数](<第二章 wazuh安装配置/2.5 puppet批量部署/2.5.5 wazuh参数.md>)
+* [2.6 ansible批量部署](<第二章 wazuh安装配置/2.6 ansible批量部署/README.md>)
+  * [2.6.1  ansible Linux 安装](<第二章 wazuh安装配置/2.6 ansible批量部署/2.6.1  ansible Linux 安装.md>)
+  * [2.6.2 ansible windows安装](<第二章 wazuh安装配置/2.6 ansible批量部署/2.6.2 ansible windows安装.md>)
+  * [2.6.3 wazuh参数](<第二章 wazuh安装配置/2.6 ansible批量部署/2.6.3 wazuh参数.md>)
+* [2.7 无状态代理](<第二章 wazuh安装配置/2.7 无状态代理/README.md>)
+## 第五章 文件完整性监控
+* [README](<第五章 文件完整性监控/README.md>)
+* [5.1 功能描述](<第五章 文件完整性监控/5.1 功能描述.md>)
+* [5.2 实战操作](<第五章 文件完整性监控/5.2 实战操作.md>)
+## 第八章  命令内容监控
+* [第八章  命令内容监控](<第八章  命令内容监控/第八章  命令内容监控.md>)
+## 第六章 异常和恶意软件检测
+* [第六章 异常和恶意软件检测](<第六章 异常和恶意软件检测/第六章 异常和恶意软件检测/README.md>)
+  * [6.1 本地规则检测](<第六章 异常和恶意软件检测/第六章 异常和恶意软件检测/6.1 本地规则检测.md>)
+  * [6.2 VirusTotal检测](<第六章 异常和恶意软件检测/第六章 异常和恶意软件检测/6.2 VirusTotal检测.md>)
+  * [6.3 clamav检测](<第六章 异常和恶意软件检测/第六章 异常和恶意软件检测/6.3 clamav检测.md>)
+## 第十一章 安全审计
+* [audit](<第十一章 安全审计/audit/README.md>)
+* [osquery](<第十一章 安全审计/osquery/README.md>)
+* [sysmon](<第十一章 安全审计/sysmon/README.md>)
+## 第十章  主动防御
+* [第十章  主动防御](<第十章  主动防御/第十章  主动防御.md>)
+## 第四章 wazuh共享和集群
+* [README](<第四章 wazuh共享和集群/README.md>)
+* [4.1 wazuh共享](<第四章 wazuh共享和集群/4.1 wazuh共享.md>)
+* [4.2 wazuh集群](<第四章 wazuh共享和集群/4.2 wazuh集群.md>)
