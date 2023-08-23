@@ -30,7 +30,7 @@ SIEM是指安全信息与事件管理（Security Information and Event Managemen
 
 &#x20;     具体SIEM框架图如下：
 
-![SIEM架构图](../.gitbook/assets/siem架构.png)
+![SIEM架构图](../../.gitbook/assets/siem架构.png)
 
 ## SOC
 

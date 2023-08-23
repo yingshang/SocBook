@@ -29,11 +29,11 @@
 
 查看这两个文件的特征库，可以看到是特征库内容不多并且很多都是已经过时的。
 
-![](../.gitbook/assets/image%20%28133%29.png)
+![](../../.gitbook/assets/image%20%28133%29.png)
 
 为了测试效果，将检测频率修改为30秒，以及快速检测到出现问题。
 
-![](../.gitbook/assets/image%20%28135%29.png)
+![](../../.gitbook/assets/image%20%28135%29.png)
 
 使用echo命令在/dev目录生成一个隐藏文件，在Linux系统\(.\)代表隐藏文件，所以rootcheck会觉得有问题，就会进行告警。
 
@@ -43,11 +43,11 @@
 
 在管理端收集告警日志，在full\_log字符看到描述说是可能是隐藏文件。
 
-![](../.gitbook/assets/image%20%28131%29.png)
+![](../../.gitbook/assets/image%20%28131%29.png)
 
 下图可以看到，这是我之前使用蜜罐系统捕捉到互联网的恶意脚本，执行这些恶意脚本测试一下rootcheck检测效果是怎样的。
 
-![](../.gitbook/assets/image%20%28136%29.png)
+![](../../.gitbook/assets/image%20%28136%29.png)
 
 批量运行脚本：
 
@@ -61,5 +61,5 @@ for root, dirs, files in os.walk("/opt/Legacy-of-intrusion-master/files", topdow
 
 恶意脚本运行了一段时间之后，**rootcheck并没有检测到恶意脚本的行为**，相反audit还检测到一些执行操作，这一块检测到后面章节说到。
 
-![](../.gitbook/assets/image%20%28137%29.png)
+![](../../.gitbook/assets/image%20%28137%29.png)
 

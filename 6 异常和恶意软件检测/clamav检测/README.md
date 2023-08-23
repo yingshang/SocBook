@@ -17,7 +17,7 @@ clamav是一个开源病毒扫描软件，针对于Linux木马病毒进行本地
 
 安装完成之后，需要更新clamav的病毒特征库，使用`freshclam`命令进行更新。
 
-![](../.gitbook/assets/image%20%28144%29.png)
+![](../../.gitbook/assets/image%20%28144%29.png)
 
 我这边提供两种思路：一种是直接扫描，另外一种就是配置好文件再扫描，前者简单直接，后者日志数据会丰富一点，配置麻烦。
 
@@ -25,7 +25,7 @@ clamav是一个开源病毒扫描软件，针对于Linux木马病毒进行本地
 
 clamscan命令是扫描命令，`-r`参数是递归扫描目录参数后面接扫描目录，`-l`参数则是生成扫描日志的位置。为了可以周期性扫描，可以使用crontab命令制定计划任务。
 
-![](../.gitbook/assets/image%20%28146%29.png)
+![](../../.gitbook/assets/image%20%28146%29.png)
 
 ## 配置文件扫描
 
@@ -103,5 +103,5 @@ LogFileMaxSize 20M  #最大轮转容量记录为20M
 
 配置完成之后，扫描木马病毒就可以生成告警日志。
 
-![](../.gitbook/assets/image%20%28142%29.png)
+![](../../.gitbook/assets/image%20%28142%29.png)
 
