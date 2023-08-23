@@ -65,7 +65,7 @@ cis_centos8_linux.yml.disabled      cis_rhel5_linux.yml.disabled          cis_sq
 
 安装完成之后，查看日志提示`sca.remote_commands`没有启动，这是因为管理端需要执行命令检测代理端安全基线。
 
-![](../.gitbook/assets/image%20%28150%29.png)
+![](../../.gitbook/assets/image%20%28150%29.png)
 
 在代理端执行以下命令，给`local_internal_options.conf`配置文件添加参数，查了相关资料，这个文件涉及到wazuh默认配置的更改，不常用，你可以理解为这个文件就是开发者模式，可以调整相应的参数值进行调试排查错误。
 
@@ -75,17 +75,17 @@ cis_centos8_linux.yml.disabled      cis_rhel5_linux.yml.disabled          cis_sq
 
 执行完命令之后，重启代理端，再查看日志可以看到已经开始评估apache安全基线文件。
 
-![](../.gitbook/assets/image%20%28148%29.png)
+![](../../.gitbook/assets/image%20%28148%29.png)
 
 管理端收集到基于apache的安全基线的日志，总共有30条安全基线配置策略，5条配置通过，18条没有配置，7条不适合，分数只有21分。
 
-![](../.gitbook/assets/image%20%28149%29.png)
+![](../../.gitbook/assets/image%20%28149%29.png)
 
 ## 自定义安全基线规则
 
 我们先看一下官方的`cis_rhel7_linux.yml`文件是怎么编写的？文件是采用`yaml`格式进行编写，其中安全基线文件检测由四个部分组成，分别是`policy`（安全基线文件信息描述），`requirements`（检测前提条件），`variables`（定义变量）以及`checks`（检测清单）。
 
-![](../.gitbook/assets/image%20%28147%29.png)
+![](../../.gitbook/assets/image%20%28147%29.png)
 
 下面表格是展示安全基线规则检测组成四部分的详细参数名和参数内容，**核心参数主要是rules和condition，这两块组成了规则检测的重要条件**。
 
@@ -327,11 +327,11 @@ checks:
 
 接着在管理端接收到代理端基线扫描的发送过来的告警信息。
 
-![](../.gitbook/assets/image%20%28152%29.png)
+![](../../.gitbook/assets/image%20%28152%29.png)
 
 左边告警信息是查看`testfile`是否存在`test`内容，因为只创建文件，没有往里面填充内容，所以显示失败；右边告警信息是执行`ps aux`命令查看是否存在http进程。
 
-![](../.gitbook/assets/image%20%28153%29.png)
+![](../../.gitbook/assets/image%20%28153%29.png)
 
 接着我们根据相应规则整改基线。
 
@@ -347,9 +347,9 @@ Redirecting to /bin/systemctl start httpd.service
 
 一段时间后，就收到了满分基线！！！两条检测规则都通过了。
 
-![](../.gitbook/assets/image%20%28154%29.png)
+![](../../.gitbook/assets/image%20%28154%29.png)
 
 对比之前失败结果，现在就显示已经通过安全基线检测。
 
-![](../.gitbook/assets/image%20%28155%29.png)
+![](../../.gitbook/assets/image%20%28155%29.png)
 
