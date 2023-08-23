@@ -4,7 +4,7 @@
 ## 1 序言
 * [简介](<1 序言/简介/README.md>)
 ## 10  主动防御
-* [第十章  主动防御](<10  主动防御/第十章  主动防御.md>)
+* [主动防御](<10  主动防御/主动防御.md>)
 ## 11 安全审计
 * [audit](<11 安全审计/audit/README.md>)
 * [osquery](<11 安全审计/osquery/README.md>)
@@ -15,8 +15,8 @@
 * [自定义告警](<12 告警手段/自定义告警.md>)
 ## 13 指标可视化
 * [grafana](<13 指标可视化/grafana.md>)
+* [kibana](<13 指标可视化/kibana.md>)
 * [splunk](<13 指标可视化/splunk.md>)
-* [untitled](<13 指标可视化/untitled.md>)
 ## 14 SIEM框架
 * [clickhouse](<14 SIEM框架/clickhouse/README.md>)
 * [splunk](<14 SIEM框架/splunk/README.md>)
@@ -29,7 +29,6 @@
 * [siemonster](<16 SIEM集成虚拟机/siemonster/README.md>)
 * [wazuh](<16 SIEM集成虚拟机/wazuh/README.md>)
 ## 2 wazuh安装配置
-* [README](<2 wazuh安装配置/README.md>)
 * [2.1 系统架构](<2 wazuh安装配置/2.1 系统架构/README.md>)
 * [2.2 wazuh管理端安装](<2 wazuh安装配置/2.2 wazuh管理端安装/README.md>)
   * [2.2.1 Centos 7安装](<2 wazuh安装配置/2.2 wazuh管理端安装/2.2.1 Centos 7安装.md>)
@@ -77,11 +76,9 @@
   * [3.6.2 wazuhAPI认证](<3 日志收集安装配置/3.6 wazuh鉴权机制/3.6.2 wazuhAPI认证.md>)
 * [3.7 syslog导出](<3 日志收集安装配置/3.7 syslog导出/README.md>)
 ## 4 wazuh共享和集群
-* [README](<4 wazuh共享和集群/README.md>)
 * [4.1 wazuh共享](<4 wazuh共享和集群/4.1 wazuh共享.md>)
 * [4.2 wazuh集群](<4 wazuh共享和集群/4.2 wazuh集群.md>)
 ## 5 文件完整性监控
-* [README](<5 文件完整性监控/README.md>)
 * [5.1 功能描述](<5 文件完整性监控/5.1 功能描述.md>)
 * [5.2 实战操作](<5 文件完整性监控/5.2 实战操作.md>)
 ## 6 异常和恶意软件检测
@@ -93,7 +90,6 @@
 * [7.2 SCA](<7 安全基线检测/7.2 SCA/README.md>)
 * [7.3 openscap](<7 安全基线检测/7.3 openscap/README.md>)
 ## 8  命令内容监控
-* [第八章  命令内容监控](<8  命令内容监控/第八章  命令内容监控.md>)
+* [命令内容监控](<8  命令内容监控/命令内容监控.md>)
 ## 9 主机安全漏洞检测
-* [第九章 主机安全漏洞检测](<9 主机安全漏洞检测/第九章 主机安全漏洞检测/README.md>)
-  * [9.1 配置漏洞扫描](<9 主机安全漏洞检测/第九章 主机安全漏洞检测/9.1 配置漏洞扫描.md>)
+* [9.1 配置漏洞扫描](<9 主机安全漏洞检测/9.1 配置漏洞扫描.md>)
