@@ -1,4 +1,4 @@
-# 7.1 SCA
+# 7.2 SCA
 
 ## SCA运行过程
 
@@ -143,25 +143,31 @@ cis_centos8_linux.yml.disabled      cis_rhel5_linux.yml.disabled          cis_sq
 'f:$test_file -> r:\s*test'
 ```
 
-③匹配文件内容（某一行）既包含test内容字符串，也包含abc内容字符串，其中`&&`操作符就是同时满足匹配条件。
+
+
+③匹配文件内容（某一行）既包含test内容字符串，也包含abc内容字符串，其中`&&`操作符就是同时满足匹配条件。
 
 ```text
 'f:$test_file -> r:test && r:abc'
 ```
 
-④匹配文件内容（全部）不包含test内容字符串，其中`!`作用就是取反，变成不匹配XXX内容。
+
+④匹配文件内容（全部）不包含test内容字符串，其中`!`作用就是取反，变成不匹配XXX内容。
 
 ```text
 'f:$test_file -> !r:test'
 ```
 
-⑤匹配文件内容（某一行）既开头包含`#`字符，也包含test内容字符串，其中`^`符合匹配开头XXX内容
+
+⑤匹配文件内容（某一行）既开头包含`#`字符，也包含test内容字符串，其中`^`符合匹配开头XXX内容
 
 ```text
 'f:$test_file -> r:^# && r:test'
 ```
 
-⑥匹配文件内容（某一行）包含test=数字，其中`n`代表匹配整型类型，后面compare是关键字取`\d`内容与`1`进行比较，除了`==`（等于）还有`>`（大于）、`<`（小于）、`！=`（不等于）、`>=`（大于或等于）、`<=`（小于或不等于）。
+
+⑥匹配文件内容（某一行）包含test=数字，其中`n`代表匹配整型类型，后面compare是关键字取`\d`内容与`1`进行比较，除了`==`（等于）还有`>`（大于）、`<`（小于）、`！=`（不等于）、`>=`（大于或等于）、`<=`（小于或不等于）。
+
 
 ```text
 'f:$test_file -> n:test=(\d) compare == 1'
@@ -181,21 +187,25 @@ cis_centos8_linux.yml.disabled      cis_rhel5_linux.yml.disabled          cis_sq
 'd:/etc'
 ```
 
-②检测/etc/目录是否存在passwd文件
+
+②检测/etc/目录是否存在passwd文件
 
 ```text
 'd:/etc -> passwd'
 ```
 
-③检测/etc/passwd这个文件内容是否有root字符串
+
+③检测/etc/passwd这个文件内容是否有root字符串
 
 ```text
 'd:/etc -> passwd -> r:root'
 ```
 
-#### （3）进程匹配
+#### 
+（3）进程匹配
 
-①匹配进程为sshd，经实际测试可以匹配sshd进程，但是其他进程都无法匹配，我取ps aux的命令和systemctl服务名字放进去匹配，提示都无法匹配到，如果需要匹配进程，可以使用命令进行匹配相关字符串。
+①匹配进程为sshd，经实际测试可以匹配sshd进程，但是其他进程都无法匹配，我取ps aux的命令和systemctl服务名字放进去匹配，提示都无法匹配到，如果需要匹配进程，可以使用命令进行匹配相关字符串。
+
 
 ```text
 'p:sshd'
@@ -209,9 +219,11 @@ cis_centos8_linux.yml.disabled      cis_rhel5_linux.yml.disabled          cis_sq
 'c:ps aux -> r:http'
 ```
 
-#### （5）注册表匹配
+#### 
+（5）注册表匹配
 
-①检测注册表是否存在wazuh服务
+①检测注册表是否存在wazuh服务
+
 
 ```text
 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\OssecSvc'=
@@ -223,7 +235,8 @@ cis_centos8_linux.yml.disabled      cis_rhel5_linux.yml.disabled          cis_sq
 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\OssecSvc ->DisplayName'
 ```
 
-③检测注册表里面wazuh服务DisplayName这个键值是否等于wazuh字符串
+
+③检测注册表里面wazuh服务DisplayName这个键值是否等于wazuh字符串
 
 ```text
 'HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\OssecSvc ->DisplayName ->wazuh'
